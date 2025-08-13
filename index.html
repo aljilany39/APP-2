@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>بطاقات الصينية — مراجعة يومية</title>
+<style>
+:root{
+  --bg:#f6f7fb;--card:#ffffff;--muted:#6b7280;--ink:#0f172a;--accent:#0ea5a4;
+  --ok:#10b981;--bad:#ef4444;--okbg:#d1fae5;--badbg:#fee2e2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Arial}
+.wrap{max-width:980px;margin:16px auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+h1{font-size:20px;margin:0}
+.small{font-size:13px;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:8px}
+.btn{cursor:pointer;border:1px solid #e5e7eb;background:#fff;padding:8px 10px;border-radius:10px}
+.btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+.btn.warn{color:#fff;background:#f59e0b;border-color:transparent}
+.btn.ghost{background:#fff}
+.card{background:var(--card);border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,.06);padding:14px;margin-bottom:12px}
+.grid{display:grid;gap:10px}
+.cols-2{grid-template-columns:1fr 1fr}
+label{display:block;margin:6px 0;font-size:13px;color:var(--muted)}
+input[type=text],input[type=number]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px}
+.list{display:grid;gap:8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.options{display:grid;gap:10px;grid-template-columns:repeat(2,1fr);margin-top:10px}
+.option{padding:14px;border-radius:10px;background:#fff;border:1px solid #eef2f7;font-weight:700}
+.option.correct{background:var(--okbg);border-color:var(--ok)}
+.option.wrong{background:var(--badbg);border-color:var(--bad)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;background:#eef2f7;color:#334155;font-size:12px}
+.k{font-weight:800;font-size:30px}
+.pinyin{font-size:14px;color:#475569}
+@media (max-width:560px){.cols-2{grid-template-columns:1fr}.options{grid-template-columns:1fr}}
+footer{text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>بطاقات الصينية — مراجعة يومية (6 خيارات)</h1>
+      <div class="small">اكتب كلماتك يدويًا؛ الخيارات الخاطئة تُولّد تلقائيًا من باقي المعاني</div>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="nav-dashboard">الرئيسية</button>
+      <button class="btn" id="nav-add">أضف بطاقة</button>
+      <button class="btn" id="nav-review">ابدأ المراجعة</button>
+      <button class="btn ghost" id="btn-export">تصدير</button>
+      <label class="btn ghost" style="cursor:pointer">استيراد
+        <input id="file-import" type="file" accept="application/json" style="display:none">
+      </label>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Dashboard -->
+    <section id="view-dashboard" class="card">
+      <div class="row" style="margin-bottom:8px">
+        <div>
+          <div class="small">إجمالي البطاقات</div>
+          <div style="font-weight:800;font-size:18px" id="stat-count">0</div>
+        </div>
+        <div>
+          <div class="small">مستحق اليوم</div>
+          <div style="font-weight:800;font-size:18px" id="stat-due">0</div>
+        </div>
+        <div>
+          <div class="small">حد يومي</div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <input id="daily-limit" type="number" min="1" value="20" style="width:90px">
+            <button class="btn" id="save-limit">حفظ</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin-bottom:8px">
+          <div class="small">بطاقاتك</div>
+          <div class="small">انقر مراجعة للمراجعة الفردية</div>
+        </div>
+        <div id="list" class="list"></div>
+      </div>
+    </section>
+
+    <!-- Add -->
+    <section id="view-add" class="card" style="display:none">
+      <h3 style="margin:0 0 8px 0">أضف بطاقة صينية</h3>
+      <form id="form-add" class="grid cols-2">
+        <div>
+          <label>الكلمة (صينية — 汉字)</label>
+          <input id="f-hanzi" type="text" placeholder="مثال: 你好">
+        </div>
+        <div>
+          <label>النطق (Pinyin اختياري)</label>
+          <input id="f-pinyin" type="text" placeholder="مثال: nǐ hǎo">
+        </div>
+        <div class="cols-2" style="grid-column:1/-1">
+          <div>
+            <label>المعنى (عربي)</label>
+            <input id="f-meaning" type="text" placeholder="مثال: مرحبًا">
+          </div>
+        </div>
+        <div style="grid-column:1/-1;display:flex;gap:8px">
+          <button class="btn primary" type="submit">أضف</button>
+          <button class="btn" type="button" id="clear-add">مسح</button>
+        </div>
+        <div class="small" style="grid-column:1/-1;color:#64748b">
+          * يتم توليد 5 خيارات خاطئة تلقائيًا من معاني بطاقاتك الأخرى.
+        </div>
+      </form>
+    </section>
+
+    <!-- Review -->
+    <section id="view-review" class="card" style="display:none">
+      <div class="row" style="margin-bottom:8px">
+        <div class="badge">بطاقة <span id="cur-index" style="margin:0 4px">0</span>/<span id="cur-total">0</span></div>
+        <div class="badge">النقاط: <span id="cur-score" style="margin-right:6px">0</span></div>
+      </div>
+      <div style="text-align:center;margin-bottom:8px">
+        <div class="k" id="q-hanzi">—</div>
+        <div class="pinyin" id="q-pinyin">—</div>
+        <div style="margin-top:6px">
+          <button class="btn" id="btn-tts">🔊 نطق</button>
+        </div>
+      </div>
+      <div id="opts" class="options"></div>
+    </section>
+
+    <!-- Results -->
+    <section id="view-results" class="card" style="display:none">
+      <h3 style="margin-top:0">انتهت جلسة اليوم</h3>
+      <div class="small">درجتك: <b id="final-score">0</b> / <b id="final-total">0</b></div>
+      <div style="margin-top:10px">
+        <div class="small" style="font-weight:700">أخطأت في:</div>
+        <ul id="wrong-list" class="small"></ul>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn primary" id="again">مراجعة جديدة</button>
+        <button class="btn" id="back-home">العودة</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="small">يحفظ بياناتك محليًا — يمكنك التصدير/الاستيراد كـ JSON. يعمل كـ PWA عند رفعه على GitHub Pages.</footer>
+</div>
+
+<script>
+/* ================== بيانات أولية (صينية) ================== */
+const SAMPLE = [
+  {hanzi:"你好", pinyin:"nǐ hǎo", meaning:"مرحبًا"},
+  {hanzi:"谢谢", pinyin:"xièxie", meaning:"شكرًا"},
+  {hanzi:"再见", pinyin:"zàijiàn", meaning:"إلى اللقاء"},
+  {hanzi:"请", pinyin:"qǐng", meaning:"من فضلك"},
+  {hanzi:"对不起", pinyin:"duìbuqǐ", meaning:"آسف"},
+  {hanzi:"是", pinyin:"shì", meaning:"نعم/يكون"},
+  {hanzi:"不是", pinyin:"bú shì", meaning:"لا"},
+  {hanzi:"我", pinyin:"wǒ", meaning:"أنا"},
+  {hanzi:"你", pinyin:"nǐ", meaning:"أنت"},
+  {hanzi:"他", pinyin:"tā", meaning:"هو"},
+  {hanzi:"她", pinyin:"tā", meaning:"هي"},
+  {hanzi:"我们", pinyin:"wǒmen", meaning:"نحن"},
+  {hanzi:"中国", pinyin:"Zhōngguó", meaning:"الصين"},
+  {hanzi:"老师", pinyin:"lǎoshī", meaning:"معلم"},
+  {hanzi:"学生", pinyin:"xuéshēng", meaning:"طالب"},
+];
+
+/* ================== تخزين ================== */
+const STORAGE_KEY = 'zh-flash-v2';
+const SETTINGS_KEY = 'zh-flash-settings';
+let CARDS = [];       // {id, hanzi, pinyin, meaning, ivl, ease, dueYMD, streak, created}
+let LIMIT = 20;
+
+/* ================== أدوات مساعدة ================== */
+const todayYMD = ()=> {
+  const d = new Date(); d.setHours(0,0,0,0);
+  return d.toISOString().slice(0,10);
+};
+const addDays = (ymd, days)=>{
+  const d = new Date(ymd+'T00:00:00'); d.setDate(d.getDate()+days);
+  return d.toISOString().slice(0,10);
+};
+const uid = ()=> Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const shuffle = (a)=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ================== تحميل/حفظ ================== */
+function loadAll(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try { CARDS = JSON.parse(raw); } catch(e){ CARDS = []; }
+  }
+  if(!CARDS || CARDS.length===0){
+    CARDS = SAMPLE.map(s=>({
+      id: uid(), hanzi:s.hanzi, pinyin:s.pinyin, meaning:s.meaning,
+      ivl:1, ease:2.5, streak:0, created:todayYMD(), dueYMD:todayYMD()
+    }));
+    saveAll();
+  }
+  const sraw = localStorage.getItem(SETTINGS_KEY);
+  if(sraw){ try{ LIMIT = JSON.parse(sraw).limit ?? 20;}catch{} }
+}
+function saveAll(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(CARDS));
+}
+function saveSettings(){
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify({limit:LIMIT}));
+}
+
+/* ================== توليد الخيارات ================== */
+function buildOptions(card){
+  const pool = CARDS.map(c=>c.meaning).filter(m=>m && m!==card.meaning);
+  shuffle(pool);
+  const wrongs = pool.slice(0,5);
+  while(wrongs.length<5) wrongs.push("خيار غير صحيح");
+  return shuffle([card.meaning, ...wrongs].slice(0,6));
+}
+
+/* ================== جدولة بسيطة (مراجعة يومية) ================== */
+/* قاعدة سهلة:
+   - صحيح: streak++ ، ivl = (streak===1?1:streak===2?2:Math.ceil(ivl*1.7)) ، due = اليوم + ivl
+   - خطأ: streak=0 ، ivl=1 ، due = اليوم + 1
+*/
+function grade(card, isCorrect){
+  if(isCorrect){
+    card.streak = (card.streak||0)+1;
+    card.ivl = card.streak===1?1 : card.streak===2?2 : Math.max(3, Math.ceil(card.ivl*1.7));
+    card.dueYMD = addDays(todayYMD(), card.ivl);
+  }else{
+    card.streak = 0;
+    card.ivl = 1;
+    card.dueYMD = addDays(todayYMD(), 1);
+  }
+}
+
+/* ================== عناصر الواجهة ================== */
+const el = {
+  dash: document.getElementById('view-dashboard'),
+  add: document.getElementById('view-add'),
+  review: document.getElementById('view-review'),
+  results: document.getElementById('view-results'),
+  list: document.getElementById('list'),
+  statCount: document.getElementById('stat-count'),
+  statDue: document.getElementById('stat-due'),
+  limitInput: document.getElementById('daily-limit'),
+  saveLimit: document.getElementById('save-limit'),
+  // add form
+  fHanzi: document.getElementById('f-hanzi'),
+  fPinyin: document.getElementById('f-pinyin'),
+  fMeaning: document.getElementById('f-meaning'),
+  formAdd: document.getElementById('form-add'),
+  clearAdd: document.getElementById('clear-add'),
+  // review
+  qHanzi: document.getElementById('q-hanzi'),
+  qPinyin: document.getElementById('q-pinyin'),
+  curIdx: document.getElementById('cur-index'),
+  curTotal: document.getElementById('cur-total'),
+  curScore: document.getElementById('cur-score'),
+  opts: document.getElementById('opts'),
+  tts: document.getElementById('btn-tts'),
+  // results
+  finalScore: document.getElementById('final-score'),
+  finalTotal: document.getElementById('final-total'),
+  wrongList: document.getElementById('wrong-list'),
+  again: document.getElementById('again'),
+  backHome: document.getElementById('back-home'),
+  // io
+  exp: document.getElementById('btn-export'),
+  imp: document.getElementById('file-import'),
+};
+
+/* ================== تنقل ================== */
+document.getElementById('nav-dashboard').onclick = ()=> show('dash');
+document.getElementById('nav-add').onclick = ()=> show('add');
+document.getElementById('nav-review').onclick = ()=> startSession();
+el.saveLimit.onclick = ()=>{ LIMIT = Math.max(1, +el.limitInput.value||20); saveSettings(); refreshDash(); alert('تم الحفظ'); };
+
+/* ================== إضافة بطاقة ================== */
+el.formAdd.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const hanzi = el.fHanzi.value.trim();
+  const pinyin = el.fPinyin.value.trim();
+  const meaning = el.fMeaning.value.trim();
+  if(!hanzi || !meaning) { alert('أدخل الكلمة بالصينية والمعنى'); return; }
+  CARDS.unshift({
+    id: uid(), hanzi, pinyin, meaning, ivl:1, ease:2.5, streak:0, created:todayYMD(), dueYMD:todayYMD()
+  });
+  saveAll();
+  el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value='';
+  show('dash');
+});
+
+/* ================== قائمة البطاقات ================== */
+function refreshDash(){
+  el.statCount.textContent = CARDS.length;
+  const due = CARDS.filter(c=>c.dueYMD<=todayYMD()).length;
+  el.statDue.textContent = due;
+  el.limitInput.value = LIMIT;
+  el.list.innerHTML = '';
+  if(CARDS.length===0){
+    el.list.innerHTML = '<div class="small">لا توجد بطاقات.</div>'; return;
+  }
+  CARDS.forEach(c=>{
+    const row = document.createElement('div');
+    row.className='row';
+    row.innerHTML = `
+      <div>
+        <div style="font-weight:800">${c.hanzi}</div>
+        <div class="small" style="display:flex;gap:8px;align-items:center">
+          <span>${c.pinyin||''}</span>
+          <span class="badge">المعنى: ${c.meaning}</span>
+          <span class="badge">موعد: ${c.dueYMD}</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn" data-pron>🔊</button>
+        <button class="btn" data-review>مراجعة</button>
+        <button class="btn" data-del style="color:#ef4444">حذف</button>
+      </div>
+    `;
+    el.list.appendChild(row);
+    row.querySelector('[data-pron]').onclick = ()=> speak(c.hanzi);
+    row.querySelector('[data-review]').onclick = ()=>{
+      SESSION.queue = [c]; SESSION.i=0; SESSION.score=0; SESSION.wrongs=[];
+      show('review'); loadCard();
+    };
+    row.querySelector('[data-del]').onclick = ()=>{
+      if(confirm('حذف البطاقة؟')){
+        CARDS = CARDS.filter(x=>x.id!==c.id); saveAll(); refreshDash();
+      }
+    };
+  });
+}
+
+/* ================== نطق صيني ================== */
+function speak(text){
+  if(!('speechSynthesis' in window)) return alert('النطق غير مدعوم في هذا المتصفح');
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'zh-CN';
+  const vs = window.speechSynthesis.getVoices();
+  const v = vs.find(x=>x.lang && x.lang.toLowerCase().startsWith('zh'));
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+el.tts.onclick = ()=> speak(el.qHanzi.textContent);
+
+/* ================== جلسة المراجعة ================== */
+const SESSION = {queue:[], i:0, score:0, wrongs:[]};
+
+function startSession(){
+  const due = CARDS.filter(c=>c.dueYMD<=todayYMD());
+  if(due.length===0){ alert('لا بطاقات مستحقة اليوم'); return; }
+  SESSION.queue = shuffle(due).slice(0, LIMIT);
+  SESSION.i=0; SESSION.score=0; SESSION.wrongs=[];
+  show('review'); loadCard();
+}
+
+function loadCard(){
+  const card = SESSION.queue[SESSION.i];
+  if(!card){ return show('results'); }
+  el.qHanzi.textContent = card.hanzi;
+  el.qPinyin.textContent = card.pinyin || '—';
+  el.curIdx.textContent = SESSION.i+1;
+  el.curTotal.textContent = SESSION.queue.length;
+  el.curScore.textContent = SESSION.score;
+  const opts = buildOptions(card);
+  el.opts.innerHTML = '';
+  let answered=false;
+  opts.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className='option'; b.textContent=opt;
+    b.onclick = ()=>{
+      if(answered) return;
+      answered=true;
+      // reveal
+      [...el.opts.children].forEach(btn=>{
+        const t = btn.textContent;
+        if(t===card.meaning) btn.classList.add('correct');
+        if(t===opt && t!==card.meaning) btn.classList.add('wrong');
+        btn.disabled=true;
+      });
+      const ok = (opt===card.meaning);
+      if(ok) SESSION.score++;
+      grade(card, ok);
+      saveAll();
+      if(!ok) SESSION.wrongs.push(card);
+      setTimeout(()=>{
+        SESSION.i++;
+        if(SESSION.i<SESSION.queue.length) loadCard();
+        else show('results');
+      }, 700);
+    };
+    el.opts.appendChild(b);
+  });
+}
+
+/* ================== نتائج ================== */
+function renderResults(){
+  el.finalScore.textContent = SESSION.score;
+  el.finalTotal.textContent = SESSION.queue.length;
+  el.wrongList.innerHTML = '';
+  if(SESSION.wrongs.length===0){
+    el.wrongList.innerHTML = '<li>أحسنت — لا أخطاء 🎉</li>';
+  }else{
+    SESSION.wrongs.forEach(w=>{
+      const li = document.createElement('li');
+      li.textContent = `${w.hanzi} (${w.pinyin||'—'}) — ${w.meaning}`;
+      el.wrongList.appendChild(li);
+    });
+  }
+}
+el.again.onclick = ()=> startSession();
+el.backHome.onclick = ()=> show('dash');
+
+/* ================== تصدير/استيراد ================== */
+el.exp.onclick = ()=>{
+  const data = JSON.stringify(CARDS, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'chinese-flashcards.json';
+  a.click(); URL.revokeObjectURL(a.href);
+};
+el.imp.onchange = (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const arr = JSON.parse(r.result);
+      if(!Array.isArray(arr)) throw new Error('invalid');
+      const sanitized = arr.map(it=>({
+        id: it.id||uid(), hanzi: it.hanzi||it.word||'', pinyin: it.pinyin||'',
+        meaning: it.meaning||'', ivl: it.ivl||1, ease: it.ease||2.5,
+        streak: it.streak||0, created: it.created||todayYMD(), dueYMD: it.dueYMD||todayYMD()
+      }));
+      CARDS = sanitized.concat(CARDS);
+      saveAll(); refreshDash(); alert('تم الاستيراد');
+    }catch(err){ alert('ملف غير صالح'); }
+  };
+  r.readAsText(f);
+};
+
+/* ================== تبديل المشاهد ================== */
+function show(name){
+  const map = {dash:'view-dashboard', add:'view-add', review:'view-review', results:'view-results'};
+  Object.values(map).forEach(id=> document.getElementById(id).style.display='none');
+  document.getElementById(map[name]).style.display='';
+  if(name==='dash') refreshDash();
+  if(name==='results') renderResults();
+}
+
+/* ================== بدء ================== */
+loadAll();
+show('dash');
+document.getElementById('clear-add').onclick = ()=>{ el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value=''; };
+</script>
+
+<!-- ========= PWA مدمج (manifest + service worker عبر Blob URLs) ========= -->
+<script>
+/* أيقونة بسيطة (مربّع أزرق) Base64 PNG صغيرة */
+const ICON_PNG_192 = "iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQAAAABz2qGAAAAFklEQVR4nO3BAQ0AAADCoPdPbQ8HFAAA4HgC/QAAqg=="; // placeholder tiny
+const ICON_PNG_512 = ICON_PNG_192; // نعيد استخدامها لتبسيط الملف
+
+/* إنشاء manifest ديناميكيًا كـ Blob */
+const manifest = {
+  name: "بطاقات الصينية",
+  short_name: "Chinese Cards",
+  start_url: ".",
+  display: "standalone",
+  background_color: "#ffffff",
+  theme_color: "#0ea5a4",
+  icons: [
+    { src: "data:image/png;base64,"+ICON_PNG_192, sizes:"192x192", type:"image/png" },
+    { src: "data:image/png;base64,"+ICON_PNG_512, sizes:"512x512", type:"image/png" }
+  ]
+};
+const mBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+const mUrl = URL.createObjectURL(mBlob);
+const link = document.createElement('link'); link.rel='manifest'; link.href = mUrl; document.head.appendChild(link);
+
+/* Service Worker بسيط: يتعامل مع هذا الملف الواحد */
+const swCode = `
+self.addEventListener('install', (e)=>{
+  self.skipWaiting();
+  e.waitUntil(caches.open('zh-cards-v1').then(c=>c.addAll(['./'])).catch(()=>{}));
+});
+self.addEventListener('activate', (e)=> { self.clients.claim(); });
+self.addEventListener('fetch', (e)=>{
+  e.respondWith(
+    caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
+      const copy = res.clone();
+      caches.open('zh-cards-v1').then(c=>{ if(e.request.method==='GET') c.put(e.request, copy); });
+      return res;
+    }).catch(()=> caches.match('./')))
+  );
+});
+`;
+if('serviceWorker' in navigator){
+  const swBlob = new Blob([swCode], {type:'text/javascript'});
+  const swUrl = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
+</body>
+</html>
