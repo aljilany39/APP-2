@@ -4,38 +4,68 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>بطاقات الصينية — مراجعة يومية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
 <style>
 :root{
   --bg:#f6f7fb;--card:#ffffff;--muted:#6b7280;--ink:#0f172a;--accent:#0ea5a4;
-  --ok:#10b981;--bad:#ef4444;--okbg:#d1fae5;--badbg:#fee2e2;
+  --ok:#10b981;--bad:#ef4444;--okbg:#d1fae5;--badbg:#fee2e2;--border:#e5e7eb;--warn:#f59e0b;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Arial}
-.wrap{max-width:980px;margin:16px auto;padding:16px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-h1{font-size:20px;margin:0}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Arial;
+  -webkit-tap-highlight-color: transparent;
+}
+.wrap{max-width:1000px;margin:16px auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+h1{font-size:clamp(18px,2.5vw,24px);margin:0}
 .small{font-size:13px;color:var(--muted)}
 .controls{display:flex;flex-wrap:wrap;gap:8px}
-.btn{cursor:pointer;border:1px solid #e5e7eb;background:#fff;padding:8px 10px;border-radius:10px}
-.btn.primary{background:var(--accent);color:#fff;border-color:transparent}
-.btn.warn{color:#fff;background:#f59e0b;border-color:transparent}
+.btn{
+  cursor:pointer;border:1px solid var(--border);background:#fff;padding:10px 12px;border-radius:12px;
+  font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:transform .06s ease,box-shadow .2s ease;
+  box-shadow:0 1px 0 rgba(2,6,23,.04)
+}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(14,165,164,.25)}
+.btn.warn{color:#fff;background:var(--warn);border-color:transparent}
 .btn.ghost{background:#fff}
-.card{background:var(--card);border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,.06);padding:14px;margin-bottom:12px}
+.card{
+  background:var(--card);border-radius:16px;box-shadow:0 10px 28px rgba(2,6,23,.06);padding:16px;margin-bottom:12px;border:1px solid #eef2f7
+}
 .grid{display:grid;gap:10px}
 .cols-2{grid-template-columns:1fr 1fr}
 label{display:block;margin:6px 0;font-size:13px;color:var(--muted)}
-input[type=text],input[type=number]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px}
+input[type=text],input[type=number]{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff}
 .list{display:grid;gap:8px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#eef2f7;color:#334155;font-size:12px}
+.badge.ok{background:var(--okbg);color:#065f46}
+.badge.bad{background:var(--badbg);color:#7f1d1d}
 .options{display:grid;gap:10px;grid-template-columns:repeat(2,1fr);margin-top:10px}
-.option{padding:14px;border-radius:10px;background:#fff;border:1px solid #eef2f7;font-weight:700}
+.option{padding:14px;border-radius:12px;background:#fff;border:1px solid #eef2f7;font-weight:700;text-align:center}
 .option.correct{background:var(--okbg);border-color:var(--ok)}
 .option.wrong{background:var(--badbg);border-color:var(--bad)}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;background:#eef2f7;color:#334155;font-size:12px}
-.k{font-weight:800;font-size:30px}
+.k{font-weight:800;font-size:clamp(26px,6vw,36px)}
 .pinyin{font-size:14px;color:#475569}
-@media (max-width:560px){.cols-2{grid-template-columns:1fr}.options{grid-template-columns:1fr}}
 footer{text-align:center;margin-top:10px}
+.divider{height:1px;background:var(--border);margin:10px 0}
+.icon{font-size:16px}
+.search{width:100%;max-width:420px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:#fff;border:1px solid #eef2f7;border-radius:14px;padding:12px;text-align:center}
+.stat .v{font-weight:800;font-size:18px}
+
+@media (max-width:720px){
+  .cols-2{grid-template-columns:1fr}
+  .options{grid-template-columns:1fr}
+  .controls{gap:6px}
+  .btn{padding:10px 12px}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media (max-width:420px){ .stats{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -46,11 +76,13 @@ footer{text-align:center;margin-top:10px}
       <div class="small">اكتب كلماتك يدويًا؛ الخيارات الخاطئة تُولّد تلقائيًا من باقي المعاني</div>
     </div>
     <div class="controls">
-      <button class="btn primary" id="nav-dashboard">الرئيسية</button>
-      <button class="btn" id="nav-add">أضف بطاقة</button>
-      <button class="btn" id="nav-review">ابدأ المراجعة</button>
-      <button class="btn ghost" id="btn-export">تصدير</button>
-      <label class="btn ghost" style="cursor:pointer">استيراد
+      <button class="btn primary" id="nav-dashboard">🏠 الرئيسية</button>
+      <button class="btn" id="nav-add">➕ أضف بطاقة</button>
+      <button class="btn" id="nav-review-due">📖 مراجعة مستحقة</button>
+      <button class="btn" id="nav-review-free">⚡ ممارسة حرة</button>
+      <button class="btn warn" id="nav-hard">📌 الكلمات الصعبة</button>
+      <button class="btn ghost" id="btn-export">⬇️ تصدير</button>
+      <label class="btn ghost" style="cursor:pointer">⬆️ استيراد
         <input id="file-import" type="file" accept="application/json" style="display:none">
       </label>
     </div>
@@ -59,29 +91,32 @@ footer{text-align:center;margin-top:10px}
   <main id="main">
     <!-- Dashboard -->
     <section id="view-dashboard" class="card">
-      <div class="row" style="margin-bottom:8px">
-        <div>
+      <div class="stats">
+        <div class="stat">
           <div class="small">إجمالي البطاقات</div>
-          <div style="font-weight:800;font-size:18px" id="stat-count">0</div>
+          <div class="v" id="stat-count">0</div>
         </div>
-        <div>
+        <div class="stat">
           <div class="small">مستحق اليوم</div>
-          <div style="font-weight:800;font-size:18px" id="stat-due">0</div>
+          <div class="v" id="stat-due">0</div>
         </div>
-        <div>
-          <div class="small">حد يومي</div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <input id="daily-limit" type="number" min="1" value="20" style="width:90px">
+        <div class="stat">
+          <div class="small">حد كل جلسة</div>
+          <div style="display:flex;align-items:center;gap:6px;justify-content:center;margin-top:6px">
+            <input id="daily-limit" class="search" type="number" min="1" value="20" style="max-width:110px;text-align:center">
             <button class="btn" id="save-limit">حفظ</button>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="row" style="margin-bottom:8px">
-          <div class="small">بطاقاتك</div>
-          <div class="small">انقر مراجعة للمراجعة الفردية</div>
-        </div>
+      <div class="divider"></div>
+
+      <div class="row" style="gap:10px;margin-bottom:8px">
+        <input id="q-search" class="search" type="text" placeholder="ابحث عن كلمة صينية أو معنى...">
+        <div class="small">انقر 🔊 للنطق أو مراجعة للمراجعة الفردية</div>
+      </div>
+
+      <div class="card" style="padding:12px">
         <div id="list" class="list"></div>
       </div>
     </section>
@@ -104,8 +139,8 @@ footer{text-align:center;margin-top:10px}
             <input id="f-meaning" type="text" placeholder="مثال: مرحبًا">
           </div>
         </div>
-        <div style="grid-column:1/-1;display:flex;gap:8px">
-          <button class="btn primary" type="submit">أضف</button>
+        <div style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn primary" type="submit">حفظ</button>
           <button class="btn" type="button" id="clear-add">مسح</button>
         </div>
         <div class="small" style="grid-column:1/-1;color:#64748b">
@@ -114,17 +149,20 @@ footer{text-align:center;margin-top:10px}
       </form>
     </section>
 
-    <!-- Review -->
+    <!-- Review (generic view reused by 3 modes) -->
     <section id="view-review" class="card" style="display:none">
       <div class="row" style="margin-bottom:8px">
+        <div class="badge">وضع: <b id="mode-name">—</b></div>
         <div class="badge">بطاقة <span id="cur-index" style="margin:0 4px">0</span>/<span id="cur-total">0</span></div>
         <div class="badge">النقاط: <span id="cur-score" style="margin-right:6px">0</span></div>
+        <div class="badge">صعوبة: <span id="cur-diff">0%</span></div>
       </div>
       <div style="text-align:center;margin-bottom:8px">
         <div class="k" id="q-hanzi">—</div>
         <div class="pinyin" id="q-pinyin">—</div>
-        <div style="margin-top:6px">
+        <div style="margin-top:6px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
           <button class="btn" id="btn-tts">🔊 نطق</button>
+          <button class="btn" id="btn-show-ans">👀 إظهار المعنى</button>
         </div>
       </div>
       <div id="opts" class="options"></div>
@@ -132,14 +170,14 @@ footer{text-align:center;margin-top:10px}
 
     <!-- Results -->
     <section id="view-results" class="card" style="display:none">
-      <h3 style="margin-top:0">انتهت جلسة اليوم</h3>
+      <h3 style="margin-top:0">انتهت الجلسة</h3>
       <div class="small">درجتك: <b id="final-score">0</b> / <b id="final-total">0</b></div>
       <div style="margin-top:10px">
         <div class="small" style="font-weight:700">أخطأت في:</div>
         <ul id="wrong-list" class="small"></ul>
       </div>
-      <div style="margin-top:10px;display:flex;gap:8px">
-        <button class="btn primary" id="again">مراجعة جديدة</button>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" id="again">جلسة جديدة</button>
         <button class="btn" id="back-home">العودة</button>
       </div>
     </section>
@@ -169,66 +207,63 @@ const SAMPLE = [
 ];
 
 /* ================== تخزين ================== */
-const STORAGE_KEY = 'zh-flash-v2';
-const SETTINGS_KEY = 'zh-flash-settings';
-let CARDS = [];       // {id, hanzi, pinyin, meaning, ivl, ease, dueYMD, streak, created}
+const STORAGE_KEY = 'zh-flash-v3';
+const SETTINGS_KEY = 'zh-flash-settings-v3';
+let CARDS = [];       // {id, hanzi, pinyin, meaning, ivl, ease, dueYMD, streak, created, attempts, wrongs}
 let LIMIT = 20;
 
 /* ================== أدوات مساعدة ================== */
-const todayYMD = ()=> {
-  const d = new Date(); d.setHours(0,0,0,0);
-  return d.toISOString().slice(0,10);
-};
-const addDays = (ymd, days)=>{
-  const d = new Date(ymd+'T00:00:00'); d.setDate(d.getDate()+days);
-  return d.toISOString().slice(0,10);
-};
+const todayYMD = ()=> { const d = new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10); };
+const addDays = (ymd, days)=>{ const d = new Date(ymd+'T00:00:00'); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10); };
 const uid = ()=> Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const shuffle = (a)=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const shuffle = (a)=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const pct = (a,b)=> b>0? Math.round((a/b)*100) : 0;
 
 /* ================== تحميل/حفظ ================== */
 function loadAll(){
   const raw = localStorage.getItem(STORAGE_KEY);
-  if(raw){
-    try { CARDS = JSON.parse(raw); } catch(e){ CARDS = []; }
-  }
+  if(raw){ try { CARDS = JSON.parse(raw); } catch(e){ CARDS = []; } }
   if(!CARDS || CARDS.length===0){
     CARDS = SAMPLE.map(s=>({
       id: uid(), hanzi:s.hanzi, pinyin:s.pinyin, meaning:s.meaning,
-      ivl:1, ease:2.5, streak:0, created:todayYMD(), dueYMD:todayYMD()
+      ivl:1, ease:2.5, streak:0, created:todayYMD(), dueYMD:todayYMD(), attempts:0, wrongs:0
     }));
     saveAll();
+  }else{
+    // ترقية هيكل قديم إن وجد
+    CARDS = CARDS.map(c=>({
+      attempts: 0, wrongs: 0, ease:2.5, streak:0, ivl:1, dueYMD:todayYMD(), created:todayYMD(), ...c
+    }));
   }
   const sraw = localStorage.getItem(SETTINGS_KEY);
-  if(sraw){ try{ LIMIT = JSON.parse(sraw).limit ?? 20;}catch{} }
+  if(sraw){ try{ const s = JSON.parse(sraw); LIMIT = s.limit ?? 20; }catch{} }
 }
-function saveAll(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(CARDS));
-}
-function saveSettings(){
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify({limit:LIMIT}));
-}
+function saveAll(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(CARDS)); }
+function saveSettings(){ localStorage.setItem(SETTINGS_KEY, JSON.stringify({limit:LIMIT})); }
 
 /* ================== توليد الخيارات ================== */
 function buildOptions(card){
-  const pool = CARDS.map(c=>c.meaning).filter(m=>m && m!==card.meaning);
+  const pool = [...new Set(CARDS.map(c=>c.meaning).filter(m=>m && m!==card.meaning))];
   shuffle(pool);
   const wrongs = pool.slice(0,5);
-  while(wrongs.length<5) wrongs.push("خيار غير صحيح");
+  while(wrongs.length<5) wrongs.push("—"); // حشو بسيط إن كانت الكلمات قليلة
   return shuffle([card.meaning, ...wrongs].slice(0,6));
 }
 
 /* ================== جدولة بسيطة (مراجعة يومية) ================== */
-/* قاعدة سهلة:
-   - صحيح: streak++ ، ivl = (streak===1?1:streak===2?2:Math.ceil(ivl*1.7)) ، due = اليوم + ivl
+/* قاعدة:
+   - صحيح: streak++ ، ivl = (1,2, ceil(ivl*1.7)) ، due = اليوم + ivl
    - خطأ: streak=0 ، ivl=1 ، due = اليوم + 1
+   كما أننا نزيد attempts والwrongs لتتبّع الصعوبة.
 */
 function grade(card, isCorrect){
+  card.attempts = (card.attempts||0)+1;
   if(isCorrect){
     card.streak = (card.streak||0)+1;
-    card.ivl = card.streak===1?1 : card.streak===2?2 : Math.max(3, Math.ceil(card.ivl*1.7));
+    card.ivl = card.streak===1?1 : card.streak===2?2 : Math.max(3, Math.ceil((card.ivl||1)*1.7));
     card.dueYMD = addDays(todayYMD(), card.ivl);
   }else{
+    card.wrongs = (card.wrongs||0)+1;
     card.streak = 0;
     card.ivl = 1;
     card.dueYMD = addDays(todayYMD(), 1);
@@ -246,6 +281,7 @@ const el = {
   statDue: document.getElementById('stat-due'),
   limitInput: document.getElementById('daily-limit'),
   saveLimit: document.getElementById('save-limit'),
+  search: document.getElementById('q-search'),
   // add form
   fHanzi: document.getElementById('f-hanzi'),
   fPinyin: document.getElementById('f-pinyin'),
@@ -258,8 +294,11 @@ const el = {
   curIdx: document.getElementById('cur-index'),
   curTotal: document.getElementById('cur-total'),
   curScore: document.getElementById('cur-score'),
+  curDiff: document.getElementById('cur-diff'),
   opts: document.getElementById('opts'),
   tts: document.getElementById('btn-tts'),
+  showAns: document.getElementById('btn-show-ans'),
+  modeName: document.getElementById('mode-name'),
   // results
   finalScore: document.getElementById('final-score'),
   finalTotal: document.getElementById('final-total'),
@@ -274,7 +313,9 @@ const el = {
 /* ================== تنقل ================== */
 document.getElementById('nav-dashboard').onclick = ()=> show('dash');
 document.getElementById('nav-add').onclick = ()=> show('add');
-document.getElementById('nav-review').onclick = ()=> startSession();
+document.getElementById('nav-review-due').onclick = ()=> startSession('due');   // مستحقة
+document.getElementById('nav-review-free').onclick = ()=> startSession('free'); // ممارسة حرة
+document.getElementById('nav-hard').onclick = ()=> startSession('hard');        // الكلمات الصعبة
 el.saveLimit.onclick = ()=>{ LIMIT = Math.max(1, +el.limitInput.value||20); saveSettings(); refreshDash(); alert('تم الحفظ'); };
 
 /* ================== إضافة بطاقة ================== */
@@ -285,12 +326,14 @@ el.formAdd.addEventListener('submit', (e)=>{
   const meaning = el.fMeaning.value.trim();
   if(!hanzi || !meaning) { alert('أدخل الكلمة بالصينية والمعنى'); return; }
   CARDS.unshift({
-    id: uid(), hanzi, pinyin, meaning, ivl:1, ease:2.5, streak:0, created:todayYMD(), dueYMD:todayYMD()
+    id: uid(), hanzi, pinyin, meaning, ivl:1, ease:2.5, streak:0, created:todayYMD(),
+    dueYMD:todayYMD(), attempts:0, wrongs:0
   });
   saveAll();
   el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value='';
   show('dash');
 });
+document.getElementById('clear-add').onclick = ()=>{ el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value=''; };
 
 /* ================== قائمة البطاقات ================== */
 function refreshDash(){
@@ -298,41 +341,61 @@ function refreshDash(){
   const due = CARDS.filter(c=>c.dueYMD<=todayYMD()).length;
   el.statDue.textContent = due;
   el.limitInput.value = LIMIT;
+
+  const q = (el.search.value||'').trim().toLowerCase();
+  const list = (q? CARDS.filter(c=>
+      (c.hanzi||'').toLowerCase().includes(q) ||
+      (c.meaning||'').toLowerCase().includes(q) ||
+      (c.pinyin||'').toLowerCase().includes(q)
+    ) : CARDS);
+
   el.list.innerHTML = '';
-  if(CARDS.length===0){
-    el.list.innerHTML = '<div class="small">لا توجد بطاقات.</div>'; return;
-  }
-  CARDS.forEach(c=>{
+  if(list.length===0){ el.list.innerHTML = '<div class="small">لا توجد بطاقات.</div>'; return; }
+
+  list.forEach(c=>{
+    const diffPct = pct(c.wrongs||0, c.attempts||0);
     const row = document.createElement('div');
-    row.className='row';
+    row.className='row card';
+    row.style.margin='0';
     row.innerHTML = `
       <div>
-        <div style="font-weight:800">${c.hanzi}</div>
-        <div class="small" style="display:flex;gap:8px;align-items:center">
+        <div style="font-weight:800;font-size:18px">${c.hanzi}</div>
+        <div class="small" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <span>${c.pinyin||''}</span>
           <span class="badge">المعنى: ${c.meaning}</span>
           <span class="badge">موعد: ${c.dueYMD}</span>
+          <span class="badge ${diffPct>=40 && (c.attempts||0)>=3 ? 'bad':'ok'}">صعوبة: ${diffPct}%</span>
+          <span class="badge">محاولات: ${(c.attempts||0)}</span>
         </div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center">
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
         <button class="btn" data-pron>🔊</button>
         <button class="btn" data-review>مراجعة</button>
+        <button class="btn" data-edit>✏️ تعديل</button>
         <button class="btn" data-del style="color:#ef4444">حذف</button>
       </div>
     `;
     el.list.appendChild(row);
+
     row.querySelector('[data-pron]').onclick = ()=> speak(c.hanzi);
     row.querySelector('[data-review]').onclick = ()=>{
-      SESSION.queue = [c]; SESSION.i=0; SESSION.score=0; SESSION.wrongs=[];
+      SESSION.queue = [c]; SESSION.i=0; SESSION.score=0; SESSION.wrongs=[]; SESSION.mode='single';
+      el.modeName.textContent = 'مراجعة فردية';
       show('review'); loadCard();
     };
     row.querySelector('[data-del]').onclick = ()=>{
-      if(confirm('حذف البطاقة؟')){
-        CARDS = CARDS.filter(x=>x.id!==c.id); saveAll(); refreshDash();
-      }
+      if(confirm('حذف البطاقة؟')){ CARDS = CARDS.filter(x=>x.id!==c.id); saveAll(); refreshDash(); }
+    };
+    row.querySelector('[data-edit]').onclick = ()=>{
+      const newHan = prompt('الكلمة (汉字):', c.hanzi)||c.hanzi;
+      const newPin = prompt('النطق (pinyin):', c.pinyin||'')||'';
+      const newMea = prompt('المعنى (عربي):', c.meaning)||c.meaning;
+      c.hanzi=newHan.trim(); c.pinyin=newPin.trim(); c.meaning=newMea.trim();
+      saveAll(); refreshDash();
     };
   });
 }
+el.search.addEventListener('input', refreshDash);
 
 /* ================== نطق صيني ================== */
 function speak(text){
@@ -348,13 +411,32 @@ function speak(text){
 el.tts.onclick = ()=> speak(el.qHanzi.textContent);
 
 /* ================== جلسة المراجعة ================== */
-const SESSION = {queue:[], i:0, score:0, wrongs:[]};
+const SESSION = {queue:[], i:0, score:0, wrongs:[], mode:'due'};
 
-function startSession(){
-  const due = CARDS.filter(c=>c.dueYMD<=todayYMD());
-  if(due.length===0){ alert('لا بطاقات مستحقة اليوم'); return; }
-  SESSION.queue = shuffle(due).slice(0, LIMIT);
-  SESSION.i=0; SESSION.score=0; SESSION.wrongs=[];
+function startSession(mode){
+  SESSION.mode = mode;
+  let pool = [];
+  if(mode==='due'){ // مستحقة
+    pool = CARDS.filter(c=>c.dueYMD<=todayYMD());
+    if(pool.length===0){ alert('لا بطاقات مستحقة الآن. جرّب "الممارسة الحرة".'); return; }
+  }else if(mode==='free'){ // ممارسة حرة: تجاهل due
+    pool = [...CARDS];
+    if(pool.length===0){ alert('لا توجد بطاقات. أضف بطاقات أولًا.'); return; }
+  }else if(mode==='hard'){ // كلمات صعبة
+    pool = CARDS.filter(c=>{
+      const attempts=c.attempts||0, wrongs=c.wrongs||0;
+      return (attempts>=3 && (wrongs/attempts)>=0.4) || wrongs>=3;
+    });
+    if(pool.length===0){ alert('لا توجد كلمات صعبة حتى الآن 📌'); return; }
+  }else if(mode==='single'){
+    // تم إعداده عند الضغط على "مراجعة" من القائمة
+  }
+  if(mode!=='single'){
+    shuffle(pool);
+    SESSION.queue = pool.slice(0, LIMIT);
+    SESSION.i=0; SESSION.score=0; SESSION.wrongs=[];
+  }
+  el.modeName.textContent = mode==='due' ? 'مستحقة' : mode==='free' ? 'ممارسة حرة' : mode==='hard' ? 'الكلمات الصعبة' : 'مراجعة فردية';
   show('review'); loadCard();
 }
 
@@ -366,6 +448,9 @@ function loadCard(){
   el.curIdx.textContent = SESSION.i+1;
   el.curTotal.textContent = SESSION.queue.length;
   el.curScore.textContent = SESSION.score;
+  const diff = pct(card.wrongs||0, card.attempts||0);
+  el.curDiff.textContent = diff + '%';
+
   const opts = buildOptions(card);
   el.opts.innerHTML = '';
   let answered=false;
@@ -386,15 +471,26 @@ function loadCard(){
       if(ok) SESSION.score++;
       grade(card, ok);
       saveAll();
-      if(!ok) SESSION.wrongs.push(card);
+      if(!ok){
+        SESSION.wrongs.push(card);
+        // إعادة إدراج البطاقة بعد 3 بطاقات لكي تتكرر داخل نفس الجلسة
+        const insertAt = Math.min(SESSION.queue.length, SESSION.i + 4);
+        SESSION.queue.splice(insertAt, 0, card);
+      }
       setTimeout(()=>{
         SESSION.i++;
         if(SESSION.i<SESSION.queue.length) loadCard();
         else show('results');
-      }, 700);
+      }, 650);
     };
     el.opts.appendChild(b);
   });
+
+  el.showAns.onclick = ()=>{
+    [...el.opts.children].forEach(btn=>{
+      if(btn.textContent===card.meaning) btn.classList.add('correct');
+    });
+  };
 }
 
 /* ================== نتائج ================== */
@@ -405,14 +501,17 @@ function renderResults(){
   if(SESSION.wrongs.length===0){
     el.wrongList.innerHTML = '<li>أحسنت — لا أخطاء 🎉</li>';
   }else{
+    // تجميع دون تكرار
+    const seen = new Set();
     SESSION.wrongs.forEach(w=>{
+      if(seen.has(w.id)) return; seen.add(w.id);
       const li = document.createElement('li');
       li.textContent = `${w.hanzi} (${w.pinyin||'—'}) — ${w.meaning}`;
       el.wrongList.appendChild(li);
     });
   }
 }
-el.again.onclick = ()=> startSession();
+el.again.onclick = ()=> startSession(SESSION.mode);
 el.backHome.onclick = ()=> show('dash');
 
 /* ================== تصدير/استيراد ================== */
@@ -434,7 +533,8 @@ el.imp.onchange = (e)=>{
       const sanitized = arr.map(it=>({
         id: it.id||uid(), hanzi: it.hanzi||it.word||'', pinyin: it.pinyin||'',
         meaning: it.meaning||'', ivl: it.ivl||1, ease: it.ease||2.5,
-        streak: it.streak||0, created: it.created||todayYMD(), dueYMD: it.dueYMD||todayYMD()
+        streak: it.streak||0, created: it.created||todayYMD(), dueYMD: it.dueYMD||todayYMD(),
+        attempts: it.attempts||0, wrongs: it.wrongs||0
       }));
       CARDS = sanitized.concat(CARDS);
       saveAll(); refreshDash(); alert('تم الاستيراد');
@@ -455,14 +555,13 @@ function show(name){
 /* ================== بدء ================== */
 loadAll();
 show('dash');
-document.getElementById('clear-add').onclick = ()=>{ el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value=''; };
 </script>
 
 <!-- ========= PWA مدمج (manifest + service worker عبر Blob URLs) ========= -->
 <script>
-/* أيقونة بسيطة (مربّع أزرق) Base64 PNG صغيرة */
-const ICON_PNG_192 = "iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQAAAABz2qGAAAAFklEQVR4nO3BAQ0AAADCoPdPbQ8HFAAA4HgC/QAAqg=="; // placeholder tiny
-const ICON_PNG_512 = ICON_PNG_192; // نعيد استخدامها لتبسيط الملف
+/* أيقونة بسيطة Base64 (Placeholder) */
+const ICON_PNG_192 = "iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQAAAABz2qGAAAAFklEQVR4nO3BAQ0AAADCoPdPbQ8HFAAA4HgC/QAAqg==";
+const ICON_PNG_512 = ICON_PNG_192;
 
 /* إنشاء manifest ديناميكيًا كـ Blob */
 const manifest = {
@@ -481,20 +580,20 @@ const mBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
 const mUrl = URL.createObjectURL(mBlob);
 const link = document.createElement('link'); link.rel='manifest'; link.href = mUrl; document.head.appendChild(link);
 
-/* Service Worker بسيط: يتعامل مع هذا الملف الواحد */
+/* Service Worker: يكتفي بتخزين هذا الملف */
 const swCode = `
 self.addEventListener('install', (e)=>{
   self.skipWaiting();
-  e.waitUntil(caches.open('zh-cards-v1').then(c=>c.addAll(['./'])).catch(()=>{}));
+  e.waitUntil(caches.open('zh-cards-v3').then(c=>c.addAll(['./'])).catch(()=>{}));
 });
 self.addEventListener('activate', (e)=> { self.clients.claim(); });
 self.addEventListener('fetch', (e)=>{
   e.respondWith(
     caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
       const copy = res.clone();
-      caches.open('zh-cards-v1').then(c=>{ if(e.request.method==='GET') c.put(e.request, copy); });
+      caches.open('zh-cards-v3').then(c=>{ if(e.request.method==='GET') c.put(e.request, copy); });
       return res;
-    }).catch(()=> caches.match('./')))
+    }).catch(()=> caches.match('./')) )
   );
 });
 `;
