@@ -3,605 +3,658 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>بطاقات الصينية — مراجعة يومية</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<title>بطاقات الصينية — نسخة مُصححة</title>
 <style>
-:root{
-  --bg:#f6f7fb;--card:#ffffff;--muted:#6b7280;--ink:#0f172a;--accent:#0ea5a4;
-  --ok:#10b981;--bad:#ef4444;--okbg:#d1fae5;--badbg:#fee2e2;--border:#e5e7eb;--warn:#f59e0b;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Arial;
-  -webkit-tap-highlight-color: transparent;
-}
-.wrap{max-width:1000px;margin:16px auto;padding:16px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
-h1{font-size:clamp(18px,2.5vw,24px);margin:0}
-.small{font-size:13px;color:var(--muted)}
-.controls{display:flex;flex-wrap:wrap;gap:8px}
-.btn{
-  cursor:pointer;border:1px solid var(--border);background:#fff;padding:10px 12px;border-radius:12px;
-  font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:transform .06s ease,box-shadow .2s ease;
-  box-shadow:0 1px 0 rgba(2,6,23,.04)
-}
-.btn:active{transform:scale(.98)}
-.btn.primary{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(14,165,164,.25)}
-.btn.warn{color:#fff;background:var(--warn);border-color:transparent}
-.btn.ghost{background:#fff}
-.card{
-  background:var(--card);border-radius:16px;box-shadow:0 10px 28px rgba(2,6,23,.06);padding:16px;margin-bottom:12px;border:1px solid #eef2f7
-}
-.grid{display:grid;gap:10px}
-.cols-2{grid-template-columns:1fr 1fr}
-label{display:block;margin:6px 0;font-size:13px;color:var(--muted)}
-input[type=text],input[type=number]{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff}
-.list{display:grid;gap:8px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#eef2f7;color:#334155;font-size:12px}
-.badge.ok{background:var(--okbg);color:#065f46}
-.badge.bad{background:var(--badbg);color:#7f1d1d}
-.options{display:grid;gap:10px;grid-template-columns:repeat(2,1fr);margin-top:10px}
-.option{padding:14px;border-radius:12px;background:#fff;border:1px solid #eef2f7;font-weight:700;text-align:center}
-.option.correct{background:var(--okbg);border-color:var(--ok)}
-.option.wrong{background:var(--badbg);border-color:var(--bad)}
-.k{font-weight:800;font-size:clamp(26px,6vw,36px)}
-.pinyin{font-size:14px;color:#475569}
-footer{text-align:center;margin-top:10px}
-.divider{height:1px;background:var(--border);margin:10px 0}
-.icon{font-size:16px}
-.search{width:100%;max-width:420px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stat{background:#fff;border:1px solid #eef2f7;border-radius:14px;padding:12px;text-align:center}
-.stat .v{font-weight:800;font-size:18px}
-
-@media (max-width:720px){
-  .cols-2{grid-template-columns:1fr}
-  .options{grid-template-columns:1fr}
-  .controls{gap:6px}
-  .btn{padding:10px 12px}
-  .stats{grid-template-columns:1fr 1fr}
-}
-@media (max-width:420px){ .stats{grid-template-columns:1fr} }
+  :root{ --bg:#f6f7fb; --card:#fff; --muted:#475569; --ink:#0f172a; --accent:#0ea5a4; --bad:#ef4444; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,Arial;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:18px auto;padding:14px}
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  h1{margin:0;font-size:18px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{cursor:pointer;border-radius:10px;padding:8px 10px;border:1px solid #e6edf0;background:#fff}
+  .btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+  .card{background:var(--card);border-radius:12px;padding:14px;margin-top:12px;box-shadow:0 6px 18px rgba(2,6,23,.06)}
+  label{display:block;margin:8px 0 4px;color:var(--muted)}
+  input[type=text], input[type=date], textarea{width:100%;padding:10px;border:1px solid #e6edf0;border-radius:8px}
+  .grid{display:grid;gap:8px}
+  .cols-2{grid-template-columns:1fr 1fr}
+  .options{display:grid;gap:8px;grid-template-columns:repeat(2,1fr);margin-top:10px}
+  .option{padding:12px;border-radius:10px;border:1px solid #eef2f7;background:#fff;cursor:pointer}
+  .option.correct{background:#d1fae5;border-color:#10b981}
+  .option.wrong{background:#fee2e2;border-color:var(--bad)}
+  .sent{padding:10px;border-radius:8px;border:1px solid #eef2f7;background:#fff;margin-top:8px;text-align:right}
+  small.muted{color:var(--muted)}
+  footer{margin-top:12px;text-align:center;color:var(--muted);font-size:13px}
+  @media (max-width:720px){ .cols-2{grid-template-columns:1fr} .options{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <div>
-      <h1>بطاقات الصينية — مراجعة يومية (6 خيارات)</h1>
-      <div class="small">اكتب كلماتك يدويًا؛ الخيارات الخاطئة تُولّد تلقائيًا من باقي المعاني</div>
+      <h1>بطاقات الصينية — نسخة مُصححة</h1>
+      <div class="small muted">تدعم: تعلّم — مراجعة — كلمات صعبة — استيراد/تصدير</div>
     </div>
     <div class="controls">
       <button class="btn primary" id="nav-dashboard">🏠 الرئيسية</button>
       <button class="btn" id="nav-add">➕ أضف بطاقة</button>
-      <button class="btn" id="nav-review-due">📖 مراجعة مستحقة</button>
-      <button class="btn" id="nav-review-free">⚡ ممارسة حرة</button>
-      <button class="btn warn" id="nav-hard">📌 الكلمات الصعبة</button>
-      <button class="btn ghost" id="btn-export">⬇️ تصدير</button>
-      <label class="btn ghost" style="cursor:pointer">⬆️ استيراد
+      <button class="btn" id="nav-learn">📘 تعلّم</button>
+      <button class="btn" id="nav-review">📖 مراجعة مستحقة</button>
+      <button class="btn" id="nav-hard">📌 كلمات صعبة</button>
+      <button class="btn" id="btn-export">⬇️ تصدير</button>
+      <label class="btn" style="cursor:pointer">⬆️ استيراد
         <input id="file-import" type="file" accept="application/json" style="display:none">
       </label>
     </div>
   </header>
 
-  <main id="main">
-    <!-- Dashboard -->
-    <section id="view-dashboard" class="card">
-      <div class="stats">
-        <div class="stat">
-          <div class="small">إجمالي البطاقات</div>
-          <div class="v" id="stat-count">0</div>
-        </div>
-        <div class="stat">
-          <div class="small">مستحق اليوم</div>
-          <div class="v" id="stat-due">0</div>
-        </div>
-        <div class="stat">
-          <div class="small">حد كل جلسة</div>
-          <div style="display:flex;align-items:center;gap:6px;justify-content:center;margin-top:6px">
-            <input id="daily-limit" class="search" type="number" min="1" value="20" style="max-width:110px;text-align:center">
-            <button class="btn" id="save-limit">حفظ</button>
-          </div>
-        </div>
-      </div>
+  <!-- DASHBOARD -->
+  <section id="view-dashboard" class="card" style="display:block">
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <div><strong>إجمالي البطاقات:</strong> <span id="stat-count">0</span></div>
+      <div><strong>مستحقة الآن:</strong> <span id="stat-due">0</span></div>
+    </div>
+    <div style="margin-top:10px" class="card">
+      <input id="q-search" placeholder="ابحث بكلمة/معنى..." type="text">
+      <div id="list" style="margin-top:10px"></div>
+    </div>
+  </section>
 
-      <div class="divider"></div>
-
-      <div class="row" style="gap:10px;margin-bottom:8px">
-        <input id="q-search" class="search" type="text" placeholder="ابحث عن كلمة صينية أو معنى...">
-        <div class="small">انقر 🔊 للنطق أو مراجعة للمراجعة الفردية</div>
+  <!-- ADD -->
+  <section id="view-add" class="card" style="display:none">
+    <h3 style="margin-top:0">أضف بطاقة</h3>
+    <div class="grid cols-2">
+      <div>
+        <label>الكلمة (汉字)</label>
+        <input id="f-word" type="text" placeholder="مثال: 你好">
       </div>
-
-      <div class="card" style="padding:12px">
-        <div id="list" class="list"></div>
+      <div>
+        <label>Pinyin</label>
+        <input id="f-pinyin" type="text" placeholder="مثال: nǐ hǎo">
       </div>
-    </section>
-
-    <!-- Add -->
-    <section id="view-add" class="card" style="display:none">
-      <h3 style="margin:0 0 8px 0">أضف بطاقة صينية</h3>
-      <form id="form-add" class="grid cols-2">
-        <div>
-          <label>الكلمة (صينية — 汉字)</label>
-          <input id="f-hanzi" type="text" placeholder="مثال: 你好">
-        </div>
-        <div>
-          <label>النطق (Pinyin اختياري)</label>
-          <input id="f-pinyin" type="text" placeholder="مثال: nǐ hǎo">
-        </div>
-        <div class="cols-2" style="grid-column:1/-1">
-          <div>
-            <label>المعنى (عربي)</label>
-            <input id="f-meaning" type="text" placeholder="مثال: مرحبًا">
-          </div>
-        </div>
-        <div style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn primary" type="submit">حفظ</button>
-          <button class="btn" type="button" id="clear-add">مسح</button>
-        </div>
-        <div class="small" style="grid-column:1/-1;color:#64748b">
-          * يتم توليد 5 خيارات خاطئة تلقائيًا من معاني بطاقاتك الأخرى.
-        </div>
-      </form>
-    </section>
-
-    <!-- Review (generic view reused by 3 modes) -->
-    <section id="view-review" class="card" style="display:none">
-      <div class="row" style="margin-bottom:8px">
-        <div class="badge">وضع: <b id="mode-name">—</b></div>
-        <div class="badge">بطاقة <span id="cur-index" style="margin:0 4px">0</span>/<span id="cur-total">0</span></div>
-        <div class="badge">النقاط: <span id="cur-score" style="margin-right:6px">0</span></div>
-        <div class="badge">صعوبة: <span id="cur-diff">0%</span></div>
+      <div style="grid-column:1/-1">
+        <label>المعنى (عربي)</label>
+        <input id="f-meaning" type="text" placeholder="مثال: مرحبًا">
       </div>
-      <div style="text-align:center;margin-bottom:8px">
-        <div class="k" id="q-hanzi">—</div>
-        <div class="pinyin" id="q-pinyin">—</div>
-        <div style="margin-top:6px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn" id="btn-tts">🔊 نطق</button>
-          <button class="btn" id="btn-show-ans">👀 إظهار المعنى</button>
-        </div>
-      </div>
-      <div id="opts" class="options"></div>
-    </section>
+    </div>
 
-    <!-- Results -->
-    <section id="view-results" class="card" style="display:none">
-      <h3 style="margin-top:0">انتهت الجلسة</h3>
-      <div class="small">درجتك: <b id="final-score">0</b> / <b id="final-total">0</b></div>
-      <div style="margin-top:10px">
-        <div class="small" style="font-weight:700">أخطأت في:</div>
-        <ul id="wrong-list" class="small"></ul>
+    <h4 style="margin:10px 0 6px 0">ثلاث جمل (اختياري — كل سطر: الجملة / pinyin / المعنى)</h4>
+    <div class="grid">
+      <div>
+        <label>جملة 1</label>
+        <input id="s1-text" placeholder="汉字">
+        <input id="s1-pinyin" placeholder="pinyin">
+        <input id="s1-meaning" placeholder="المعنى">
       </div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn primary" id="again">جلسة جديدة</button>
-        <button class="btn" id="back-home">العودة</button>
+      <div>
+        <label>جملة 2</label>
+        <input id="s2-text" placeholder="汉字">
+        <input id="s2-pinyin" placeholder="pinyin">
+        <input id="s2-meaning" placeholder="المعنى">
       </div>
-    </section>
-  </main>
+      <div>
+        <label>جملة 3</label>
+        <input id="s3-text" placeholder="汉字">
+        <input id="s3-pinyin" placeholder="pinyin">
+        <input id="s3-meaning" placeholder="المعنى">
+      </div>
+    </div>
 
-  <footer class="small">يحفظ بياناتك محليًا — يمكنك التصدير/الاستيراد كـ JSON. يعمل كـ PWA عند رفعه على GitHub Pages.</footer>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn primary" id="save-card">حفظ</button>
+      <button class="btn" id="clear-add">مسح الحقول</button>
+    </div>
+    <small class="muted">* تُولّد خيارات خاطئة من باقي معاني بطاقاتك.</small>
+  </section>
+
+  <!-- LEARN -->
+  <section id="view-learn" class="card" style="display:none">
+    <h3 style="margin-top:0">📘 تعلّم — عرض البطاقات</h3>
+    <div id="learn-list"></div>
+  </section>
+
+  <!-- REVIEW -->
+  <section id="view-review" class="card" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div><strong>وضع:</strong> مستحقة</div>
+      <div><button class="btn" id="btn-show-answer">👀 كشف المعنى (يُعتبر خطأ)</button></div>
+    </div>
+    <div style="text-align:center;margin-top:12px">
+      <div style="font-weight:800;font-size:28px" id="q-word">—</div>
+      <div style="margin-top:8px;color:var(--muted)" id="q-pinyin">—</div>
+      <div class="options" id="q-options" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <!-- HARD -->
+  <section id="view-hard" class="card" style="display:none">
+    <h3 style="margin-top:0">📌 الكلمات الصعبة</h3>
+    <div id="hard-list"></div>
+  </section>
+
+  <footer>يحفظ محليًا — استعمل التصدير لعمل نسخة احتياطية</footer>
 </div>
 
 <script>
-/* ================== بيانات أولية (صينية) ================== */
+/* ----------------- Utilities & storage ----------------- */
+const STORAGE_KEY = 'zh_flash_v_final';
+const LEARN_LAST_ID_KEY = 'zh_flash_learn_last_id'; // حفظ معرف آخر بطاقة توقفت عندها
+const todayYMD = ()=>{ const d=new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10); };
+const addDays = (ymd, days)=>{ const d = new Date(ymd+'T00:00:00'); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10); };
+const uid = ()=> Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+const shuffle = (arr)=>{ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a; };
+
+/* ----------------- Default sample (used first-run) ----------------- */
 const SAMPLE = [
-  {hanzi:"你好", pinyin:"nǐ hǎo", meaning:"مرحبًا"},
-  {hanzi:"谢谢", pinyin:"xièxie", meaning:"شكرًا"},
-  {hanzi:"再见", pinyin:"zàijiàn", meaning:"إلى اللقاء"},
-  {hanzi:"请", pinyin:"qǐng", meaning:"من فضلك"},
-  {hanzi:"对不起", pinyin:"duìbuqǐ", meaning:"آسف"},
-  {hanzi:"是", pinyin:"shì", meaning:"نعم/يكون"},
-  {hanzi:"不是", pinyin:"bú shì", meaning:"لا"},
-  {hanzi:"我", pinyin:"wǒ", meaning:"أنا"},
-  {hanzi:"你", pinyin:"nǐ", meaning:"أنت"},
-  {hanzi:"他", pinyin:"tā", meaning:"هو"},
-  {hanzi:"她", pinyin:"tā", meaning:"هي"},
-  {hanzi:"我们", pinyin:"wǒmen", meaning:"نحن"},
-  {hanzi:"中国", pinyin:"Zhōngguó", meaning:"الصين"},
-  {hanzi:"老师", pinyin:"lǎoshī", meaning:"معلم"},
-  {hanzi:"学生", pinyin:"xuéshēng", meaning:"طالب"},
+  { id: uid(), word:"你好", pinyin:"nǐ hǎo", meaning:"مرحبًا",
+    sentences:[
+      {sentence:"你好！", pinyin:"nǐ hǎo!", meaning:"مرحبًا!" },
+      {sentence:"你好，你怎么样？", pinyin:"nǐ hǎo, nǐ zěnmeyàng?", meaning:"مرحبًا، كيف حالك؟"},
+      {sentence:"大家好，我叫李雷。", pinyin:"dàjiā hǎo, wǒ jiào Lǐ Léi.", meaning:"مرحبًا جميعًا، اسمي لي لي."}
+    ], isHard:false, nextReview: todayYMD(), attempts:0, wrongs:0, ivl:1, streak:0, created: todayYMD()
+  },
+  { id: uid(), word:"谢谢", pinyin:"xièxie", meaning:"شكرًا",
+    sentences:[
+      {sentence:"谢谢你。", pinyin:"xièxie nǐ.", meaning:"شكرًا لك."},
+      {sentence:"非常谢谢！", pinyin:"fēicháng xièxie!", meaning:"مشكور جدًا!"},
+      {sentence:"谢谢你的帮助。", pinyin:"xièxie nǐ de bāngzhù.", meaning:"شكرًا لمساعدتك."}
+    ], isHard:false, nextReview: todayYMD(), attempts:0, wrongs:0, ivl:1, streak:0, created: todayYMD()
+  }
 ];
 
-/* ================== تخزين ================== */
-const STORAGE_KEY = 'zh-flash-v3';
-const SETTINGS_KEY = 'zh-flash-settings-v3';
-let CARDS = [];       // {id, hanzi, pinyin, meaning, ivl, ease, dueYMD, streak, created, attempts, wrongs}
-let LIMIT = 20;
+/* ----------------- In-memory state ----------------- */
+let CARDS = [];
+let SESSION = {queue:[], i:0, mode:'due'}; // queue holds card ids for this session
 
-/* ================== أدوات مساعدة ================== */
-const todayYMD = ()=> { const d = new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10); };
-const addDays = (ymd, days)=>{ const d = new Date(ymd+'T00:00:00'); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10); };
-const uid = ()=> Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const shuffle = (a)=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-const pct = (a,b)=> b>0? Math.round((a/b)*100) : 0;
-
-/* ================== تحميل/حفظ ================== */
+/* ----------------- Load / Save ----------------- */
 function loadAll(){
   const raw = localStorage.getItem(STORAGE_KEY);
-  if(raw){ try { CARDS = JSON.parse(raw); } catch(e){ CARDS = []; } }
-  if(!CARDS || CARDS.length===0){
-    CARDS = SAMPLE.map(s=>({
-      id: uid(), hanzi:s.hanzi, pinyin:s.pinyin, meaning:s.meaning,
-      ivl:1, ease:2.5, streak:0, created:todayYMD(), dueYMD:todayYMD(), attempts:0, wrongs:0
-    }));
-    saveAll();
-  }else{
-    // ترقية هيكل قديم إن وجد
-    CARDS = CARDS.map(c=>({
-      attempts: 0, wrongs: 0, ease:2.5, streak:0, ivl:1, dueYMD:todayYMD(), created:todayYMD(), ...c
-    }));
+  if(!raw){ CARDS = SAMPLE.slice(); saveAll(); return; }
+  try{
+    const arr = JSON.parse(raw);
+    // normalize entries to expected shape
+    CARDS = arr.map(c=>{
+      // accept older keys (hanzi/word)
+      const id = c.id || uid();
+      const word = c.word || c.hanzi || c.text || '';
+      const pinyin = c.pinyin || '';
+      const meaning = c.meaning || c.mean || '';
+      // sentences may be array of strings or objects; normalize to objects
+      let sentences = [];
+      if(Array.isArray(c.sentences)){
+        sentences = c.sentences.map(s=>{
+          if(!s) return {sentence:'',pinyin:'',meaning:''};
+          if(typeof s === 'string') return {sentence:s,pinyin:'',meaning:''};
+          return { sentence: s.sentence || s.text || s.hanzi || '', pinyin: s.pinyin || s.py || '', meaning: s.meaning || s.mean || '' };
+        });
+      } else {
+        // try to read s1/s2/s3
+        sentences = [
+          {sentence: c.s1||'', pinyin:c.s1_pinyin||'', meaning:c.s1_meaning||''},
+          {sentence: c.s2||'', pinyin:c.s2_pinyin||'', meaning:c.s2_meaning||''},
+          {sentence: c.s3||'', pinyin:c.s3_pinyin||'', meaning:c.s3_meaning||''},
+        ];
+      }
+      // ensure exactly 3 items
+      while(sentences.length<3) sentences.push({sentence:'',pinyin:'',meaning:''});
+      sentences = sentences.slice(0,3);
+      return {
+        id, word, pinyin, meaning,
+        sentences,
+        isHard: !!c.isHard,
+        nextReview: c.nextReview || c.due || todayYMD(),
+        attempts: c.attempts||0,
+        wrongs: c.wrongs||0,
+        ivl: c.ivl||1,
+        streak: c.streak||0,
+        created: c.created || todayYMD()
+      };
+    });
+  }catch(e){
+    // if parse fails, reset to sample
+    console.warn('loadAll parse error', e);
+    CARDS = SAMPLE.slice();
   }
-  const sraw = localStorage.getItem(SETTINGS_KEY);
-  if(sraw){ try{ const s = JSON.parse(sraw); LIMIT = s.limit ?? 20; }catch{} }
+  saveAll(); // ensure normalized version persisted
 }
-function saveAll(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(CARDS)); }
-function saveSettings(){ localStorage.setItem(SETTINGS_KEY, JSON.stringify({limit:LIMIT})); }
+function saveAll(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(CARDS)); refreshDashboard(); }
 
-/* ================== توليد الخيارات ================== */
-function buildOptions(card){
-  const pool = [...new Set(CARDS.map(c=>c.meaning).filter(m=>m && m!==card.meaning))];
-  shuffle(pool);
-  const wrongs = pool.slice(0,5);
-  while(wrongs.length<5) wrongs.push("—"); // حشو بسيط إن كانت الكلمات قليلة
-  return shuffle([card.meaning, ...wrongs].slice(0,6));
-}
-
-/* ================== جدولة بسيطة (مراجعة يومية) ================== */
-/* قاعدة:
-   - صحيح: streak++ ، ivl = (1,2, ceil(ivl*1.7)) ، due = اليوم + ivl
-   - خطأ: streak=0 ، ivl=1 ، due = اليوم + 1
-   كما أننا نزيد attempts والwrongs لتتبّع الصعوبة.
-*/
-function grade(card, isCorrect){
-  card.attempts = (card.attempts||0)+1;
-  if(isCorrect){
-    card.streak = (card.streak||0)+1;
-    card.ivl = card.streak===1?1 : card.streak===2?2 : Math.max(3, Math.ceil((card.ivl||1)*1.7));
-    card.dueYMD = addDays(todayYMD(), card.ivl);
-  }else{
-    card.wrongs = (card.wrongs||0)+1;
-    card.streak = 0;
-    card.ivl = 1;
-    card.dueYMD = addDays(todayYMD(), 1);
-  }
-}
-
-/* ================== عناصر الواجهة ================== */
+/* ----------------- UI helpers ----------------- */
 const el = {
   dash: document.getElementById('view-dashboard'),
   add: document.getElementById('view-add'),
+  learn: document.getElementById('view-learn'),
   review: document.getElementById('view-review'),
-  results: document.getElementById('view-results'),
+  hard: document.getElementById('view-hard'),
   list: document.getElementById('list'),
   statCount: document.getElementById('stat-count'),
   statDue: document.getElementById('stat-due'),
-  limitInput: document.getElementById('daily-limit'),
-  saveLimit: document.getElementById('save-limit'),
-  search: document.getElementById('q-search'),
-  // add form
-  fHanzi: document.getElementById('f-hanzi'),
-  fPinyin: document.getElementById('f-pinyin'),
-  fMeaning: document.getElementById('f-meaning'),
-  formAdd: document.getElementById('form-add'),
-  clearAdd: document.getElementById('clear-add'),
-  // review
-  qHanzi: document.getElementById('q-hanzi'),
+  qWord: document.getElementById('q-word'),
   qPinyin: document.getElementById('q-pinyin'),
-  curIdx: document.getElementById('cur-index'),
-  curTotal: document.getElementById('cur-total'),
-  curScore: document.getElementById('cur-score'),
-  curDiff: document.getElementById('cur-diff'),
-  opts: document.getElementById('opts'),
-  tts: document.getElementById('btn-tts'),
-  showAns: document.getElementById('btn-show-ans'),
-  modeName: document.getElementById('mode-name'),
-  // results
-  finalScore: document.getElementById('final-score'),
-  finalTotal: document.getElementById('final-total'),
-  wrongList: document.getElementById('wrong-list'),
-  again: document.getElementById('again'),
-  backHome: document.getElementById('back-home'),
-  // io
-  exp: document.getElementById('btn-export'),
-  imp: document.getElementById('file-import'),
+  qOptions: document.getElementById('q-options'),
+  btnShowAnswer: document.getElementById('btn-show-answer'),
+  learnList: document.getElementById('learn-list'),
+  hardList: document.getElementById('hard-list')
 };
 
-/* ================== تنقل ================== */
-document.getElementById('nav-dashboard').onclick = ()=> show('dash');
-document.getElementById('nav-add').onclick = ()=> show('add');
-document.getElementById('nav-review-due').onclick = ()=> startSession('due');   // مستحقة
-document.getElementById('nav-review-free').onclick = ()=> startSession('free'); // ممارسة حرة
-document.getElementById('nav-hard').onclick = ()=> startSession('hard');        // الكلمات الصعبة
-el.saveLimit.onclick = ()=>{ LIMIT = Math.max(1, +el.limitInput.value||20); saveSettings(); refreshDash(); alert('تم الحفظ'); };
+document.getElementById('nav-dashboard').addEventListener('click', ()=> show('dash'));
+document.getElementById('nav-add').addEventListener('click', ()=> show('add'));
+document.getElementById('nav-learn').addEventListener('click', ()=> show('learn'));
+document.getElementById('nav-review').addEventListener('click', ()=> startSession('due'));
+document.getElementById('nav-hard').addEventListener('click', ()=> startSession('hard'));
+document.getElementById('btn-export').addEventListener('click', exportData);
+document.getElementById('file-import').addEventListener('change', importData);
 
-/* ================== إضافة بطاقة ================== */
-el.formAdd.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const hanzi = el.fHanzi.value.trim();
-  const pinyin = el.fPinyin.value.trim();
-  const meaning = el.fMeaning.value.trim();
-  if(!hanzi || !meaning) { alert('أدخل الكلمة بالصينية والمعنى'); return; }
-  CARDS.unshift({
-    id: uid(), hanzi, pinyin, meaning, ivl:1, ease:2.5, streak:0, created:todayYMD(),
-    dueYMD:todayYMD(), attempts:0, wrongs:0
-  });
-  saveAll();
-  el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value='';
-  show('dash');
-});
-document.getElementById('clear-add').onclick = ()=>{ el.fHanzi.value=''; el.fPinyin.value=''; el.fMeaning.value=''; };
+/* ----------------- Show view ----------------- */
+function show(name){
+  // hide all then show target
+  ['view-dashboard','view-add','view-learn','view-review','view-hard'].forEach(id=>document.getElementById(id).style.display='none');
+  if(name==='dash') document.getElementById('view-dashboard').style.display='';
+  if(name==='add') document.getElementById('view-add').style.display='';
+  if(name==='learn'){ document.getElementById('view-learn').style.display=''; renderLearn(); }
+  if(name==='review') document.getElementById('view-review').style.display='';
+  if(name==='hard'){ document.getElementById('view-hard').style.display=''; renderHardList(); }
+  refreshDashboard();
+}
 
-/* ================== قائمة البطاقات ================== */
-function refreshDash(){
+/* ----------------- Dashboard / List ----------------- */
+function refreshDashboard(){
   el.statCount.textContent = CARDS.length;
-  const due = CARDS.filter(c=>c.dueYMD<=todayYMD()).length;
-  el.statDue.textContent = due;
-  el.limitInput.value = LIMIT;
-
-  const q = (el.search.value||'').trim().toLowerCase();
-  const list = (q? CARDS.filter(c=>
-      (c.hanzi||'').toLowerCase().includes(q) ||
-      (c.meaning||'').toLowerCase().includes(q) ||
-      (c.pinyin||'').toLowerCase().includes(q)
-    ) : CARDS);
-
+  el.statDue.textContent = CARDS.filter(c => new Date(c.nextReview) <= new Date()).length;
+  // list items
+  const q = (document.getElementById('q-search').value||'').trim().toLowerCase();
+  const items = q ? CARDS.filter(c=> (c.word||'').toLowerCase().includes(q) || (c.meaning||'').toLowerCase().includes(q) || (c.pinyin||'').toLowerCase().includes(q) ) : CARDS;
   el.list.innerHTML = '';
-  if(list.length===0){ el.list.innerHTML = '<div class="small">لا توجد بطاقات.</div>'; return; }
-
-  list.forEach(c=>{
-    const diffPct = pct(c.wrongs||0, c.attempts||0);
-    const row = document.createElement('div');
-    row.className='row card';
-    row.style.margin='0';
-    row.innerHTML = `
-      <div>
-        <div style="font-weight:800;font-size:18px">${c.hanzi}</div>
-        <div class="small" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <span>${c.pinyin||''}</span>
-          <span class="badge">المعنى: ${c.meaning}</span>
-          <span class="badge">موعد: ${c.dueYMD}</span>
-          <span class="badge ${diffPct>=40 && (c.attempts||0)>=3 ? 'bad':'ok'}">صعوبة: ${diffPct}%</span>
-          <span class="badge">محاولات: ${(c.attempts||0)}</span>
+  if(items.length===0){ el.list.innerHTML = '<div class="small muted">لا توجد بطاقات.</div>'; return; }
+  items.forEach(c=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    const diffPct = c.attempts>0 ? Math.round((c.wrongs/c.attempts)*100) : 0;
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div>
+          <div style="font-weight:800;font-size:18px">${escapeText(c.word)}</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:6px">
+            ${escapeText(c.pinyin)} — ${escapeText(c.meaning)}
+            <span style="margin-left:8px">✪ ${diffPct}%</span>
+            <span style="margin-left:8px">📅 ${escapeText(c.nextReview)}</span>
+            <span style="margin-left:8px">❗ ${c.isHard? 'نعم':'لا'}</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn" data-pron>🔊</button>
+          <button class="btn" data-review>مراجعة</button>
+          <button class="btn" data-edit>✏️</button>
+          <button class="btn" data-del style="color:var(--bad)">حذف</button>
         </div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-        <button class="btn" data-pron>🔊</button>
-        <button class="btn" data-review>مراجعة</button>
-        <button class="btn" data-edit>✏️ تعديل</button>
-        <button class="btn" data-del style="color:#ef4444">حذف</button>
-      </div>
     `;
-    el.list.appendChild(row);
+    el.list.appendChild(div);
 
-    row.querySelector('[data-pron]').onclick = ()=> speak(c.hanzi);
-    row.querySelector('[data-review]').onclick = ()=>{
-      SESSION.queue = [c]; SESSION.i=0; SESSION.score=0; SESSION.wrongs=[]; SESSION.mode='single';
-      el.modeName.textContent = 'مراجعة فردية';
-      show('review'); loadCard();
-    };
-    row.querySelector('[data-del]').onclick = ()=>{
-      if(confirm('حذف البطاقة؟')){ CARDS = CARDS.filter(x=>x.id!==c.id); saveAll(); refreshDash(); }
-    };
-    row.querySelector('[data-edit]').onclick = ()=>{
-      const newHan = prompt('الكلمة (汉字):', c.hanzi)||c.hanzi;
-      const newPin = prompt('النطق (pinyin):', c.pinyin||'')||'';
-      const newMea = prompt('المعنى (عربي):', c.meaning)||c.meaning;
-      c.hanzi=newHan.trim(); c.pinyin=newPin.trim(); c.meaning=newMea.trim();
-      saveAll(); refreshDash();
-    };
+    div.querySelector('[data-pron]').addEventListener('click', ()=> speak(c.word));
+    div.querySelector('[data-review]').addEventListener('click', ()=> {
+      // single-card review session
+      SESSION.mode='single';
+      SESSION.queue = [c.id];
+      SESSION.i = 0;
+      show('review'); renderReviewCard();
+    });
+    div.querySelector('[data-del]').addEventListener('click', ()=> {
+      if(confirm('حذف البطاقة نهائيًا؟')){ CARDS = CARDS.filter(x=>x.id!==c.id); saveAll(); }
+    });
+    div.querySelector('[data-edit]').addEventListener('click', ()=> {
+      // simple edit via prompt (quick)
+      const newWord = prompt('الكلمة (漢字):', c.word)||c.word;
+      const newPin = prompt('Pinyin:', c.pinyin||'')||'';
+      const newMeaning = prompt('المعنى:', c.meaning||'')||'';
+      c.word = newWord.trim(); c.pinyin = newPin.trim(); c.meaning = newMeaning.trim();
+      saveAll();
+    });
   });
 }
-el.search.addEventListener('input', refreshDash);
+document.getElementById('q-search').addEventListener('input', refreshDashboard);
 
-/* ================== نطق صيني ================== */
+/* ----------------- Text escaping to avoid injection ----------------- */
+function escapeText(s){ if(s==null) return ''; return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+/* ----------------- TTS (simple) ----------------- */
 function speak(text){
-  if(!('speechSynthesis' in window)) return alert('النطق غير مدعوم في هذا المتصفح');
+  if(!text) return;
+  if(!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'zh-CN';
-  const vs = window.speechSynthesis.getVoices();
-  const v = vs.find(x=>x.lang && x.lang.toLowerCase().startsWith('zh'));
+  const v = window.speechSynthesis.getVoices().find(x=>x.lang && x.lang.toLowerCase().startsWith('zh'));
   if(v) u.voice = v;
   window.speechSynthesis.speak(u);
 }
-el.tts.onclick = ()=> speak(el.qHanzi.textContent);
 
-/* ================== جلسة المراجعة ================== */
-const SESSION = {queue:[], i:0, score:0, wrongs:[], mode:'due'};
+/* ----------------- Add Card (form) ----------------- */
+document.getElementById('save-card').addEventListener('click', ()=>{
+  const word = document.getElementById('f-word').value.trim();
+  const pinyin = document.getElementById('f-pinyin').value.trim();
+  const meaning = document.getElementById('f-meaning').value.trim();
+  if(!word || !meaning){ alert('أدخل الكلمة والمعنى على الأقل'); return; }
+  const s1 = { sentence: document.getElementById('s1-text').value.trim(), pinyin: document.getElementById('s1-pinyin').value.trim(), meaning: document.getElementById('s1-meaning').value.trim() };
+  const s2 = { sentence: document.getElementById('s2-text').value.trim(), pinyin: document.getElementById('s2-pinyin').value.trim(), meaning: document.getElementById('s2-meaning').value.trim() };
+  const s3 = { sentence: document.getElementById('s3-text').value.trim(), pinyin: document.getElementById('s3-pinyin').value.trim(), meaning: document.getElementById('s3-meaning').value.trim() };
+  const sentences = [s1,s2,s3].map(x=>({ sentence: x.sentence||'', pinyin: x.pinyin||'', meaning: x.meaning||'' }));
+  const card = {
+    id: uid(), word, pinyin, meaning, sentences,
+    isHard:false, nextReview: todayYMD(), attempts:0, wrongs:0, ivl:1, streak:0, created:todayYMD()
+  };
+  CARDS.unshift(card);
+  saveAll();
+  // clear
+  ['f-word','f-pinyin','f-meaning','s1-text','s1-pinyin','s1-meaning','s2-text','s2-pinyin','s2-meaning','s3-text','s3-pinyin','s3-meaning'].forEach(id=>document.getElementById(id).value='');
+  show('dash');
+});
+document.getElementById('clear-add').addEventListener('click', ()=> {
+  ['f-word','f-pinyin','f-meaning','s1-text','s1-pinyin','s1-meaning','s2-text','s2-pinyin','s2-meaning','s3-text','s3-pinyin','s3-meaning'].forEach(id=>document.getElementById(id).value='');
+});
 
+/* ----------------- Build options (safe) ----------------- */
+function buildOptionsFor(cardId){
+  const card = CARDS.find(c=>c.id===cardId);
+  if(!card) return [ '—' ];
+  // collect other meanings
+  const others = shuffle(CARDS.filter(c=>c.id!==cardId && c.meaning).map(c=>c.meaning));
+  const wrongs = others.slice(0,5);
+  while(wrongs.length<5) wrongs.push('—');
+  return shuffle([card.meaning, ...wrongs]);
+}
+
+/* ----------------- Session logic (review) ----------------- */
 function startSession(mode){
   SESSION.mode = mode;
+  SESSION.i = 0;
   let pool = [];
-  if(mode==='due'){ // مستحقة
-    pool = CARDS.filter(c=>c.dueYMD<=todayYMD());
-    if(pool.length===0){ alert('لا بطاقات مستحقة الآن. جرّب "الممارسة الحرة".'); return; }
-  }else if(mode==='free'){ // ممارسة حرة: تجاهل due
-    pool = [...CARDS];
-    if(pool.length===0){ alert('لا توجد بطاقات. أضف بطاقات أولًا.'); return; }
-  }else if(mode==='hard'){ // كلمات صعبة
-    pool = CARDS.filter(c=>{
-      const attempts=c.attempts||0, wrongs=c.wrongs||0;
-      return (attempts>=3 && (wrongs/attempts)>=0.4) || wrongs>=3;
-    });
-    if(pool.length===0){ alert('لا توجد كلمات صعبة حتى الآن 📌'); return; }
-  }else if(mode==='single'){
-    // تم إعداده عند الضغط على "مراجعة" من القائمة
+  if(mode==='due'){
+    pool = CARDS.filter(c=> new Date(c.nextReview) <= new Date() ).map(c=>c.id);
+    if(pool.length===0){ alert('لا بطاقات مستحقة الآن.'); show('dash'); return; }
+  } else if(mode==='hard'){
+    pool = CARDS.filter(c=> c.isHard ).map(c=>c.id);
+    if(pool.length===0){ alert('لا كلمات صعبة حتى الآن.'); show('dash'); return; }
+  } else if(mode==='single'){
+    // should be prepared externally
   }
-  if(mode!=='single'){
-    shuffle(pool);
-    SESSION.queue = pool.slice(0, LIMIT);
-    SESSION.i=0; SESSION.score=0; SESSION.wrongs=[];
-  }
-  el.modeName.textContent = mode==='due' ? 'مستحقة' : mode==='free' ? 'ممارسة حرة' : mode==='hard' ? 'الكلمات الصعبة' : 'مراجعة فردية';
-  show('review'); loadCard();
+  // randomize and set queue
+  SESSION.queue = shuffle(pool);
+  show('review');
+  renderReviewCard();
 }
 
-function loadCard(){
-  const card = SESSION.queue[SESSION.i];
-  if(!card){ return show('results'); }
-  el.qHanzi.textContent = card.hanzi;
+/* render current review card (word-only + options) */
+function renderReviewCard(){
+  el.qOptions.innerHTML = '';
+  el.qWord.textContent = '—'; el.qPinyin.textContent = '—';
+  if(SESSION.i >= SESSION.queue.length){
+    // session finished
+    alert('انتهت الجلسة ✅');
+    show('dash');
+    return;
+  }
+  const cid = SESSION.queue[SESSION.i];
+  const card = CARDS.find(c=>c.id===cid);
+  if(!card){ SESSION.i++; renderReviewCard(); return; }
+  el.qWord.textContent = card.word;
   el.qPinyin.textContent = card.pinyin || '—';
-  el.curIdx.textContent = SESSION.i+1;
-  el.curTotal.textContent = SESSION.queue.length;
-  el.curScore.textContent = SESSION.score;
-  const diff = pct(card.wrongs||0, card.attempts||0);
-  el.curDiff.textContent = diff + '%';
-
-  const opts = buildOptions(card);
-  el.opts.innerHTML = '';
-  let answered=false;
+  const opts = buildOptionsFor(card.id); // array of 6 strings
   opts.forEach(opt=>{
     const b = document.createElement('button');
-    b.className='option'; b.textContent=opt;
-    b.onclick = ()=>{
-      if(answered) return;
-      answered=true;
-      // reveal
-      [...el.opts.children].forEach(btn=>{
-        const t = btn.textContent;
-        if(t===card.meaning) btn.classList.add('correct');
-        if(t===opt && t!==card.meaning) btn.classList.add('wrong');
-        btn.disabled=true;
-      });
-      const ok = (opt===card.meaning);
-      if(ok) SESSION.score++;
-      grade(card, ok);
-      saveAll();
-      if(!ok){
-        SESSION.wrongs.push(card);
-        // إعادة إدراج البطاقة بعد 3 بطاقات لكي تتكرر داخل نفس الجلسة
-        const insertAt = Math.min(SESSION.queue.length, SESSION.i + 4);
-        SESSION.queue.splice(insertAt, 0, card);
-      }
-      setTimeout(()=>{
-        SESSION.i++;
-        if(SESSION.i<SESSION.queue.length) loadCard();
-        else show('results');
-      }, 650);
-    };
-    el.opts.appendChild(b);
+    b.className = 'option';
+    b.type = 'button';
+    b.textContent = opt;
+    b.addEventListener('click', ()=> {
+      handleAnswer(card.id, opt, b);
+    });
+    el.qOptions.appendChild(b);
+  });
+}
+
+/* handle answer selection */
+function handleAnswer(cardId, chosenText, btnElement){
+  const card = CARDS.find(c=>c.id===cardId);
+  if(!card) return;
+  // prevent double clicks by disabling options
+  [...el.qOptions.querySelectorAll('button')].forEach(b=>b.disabled = true);
+  card.attempts = (card.attempts||0) + 1;
+  const correct = (chosenText === card.meaning);
+  if(correct){
+    btnElement.classList.add('correct');
+    // scheduling rule
+    card.streak = (card.streak||0) + 1;
+    if(card.streak===1) card.ivl = 1;
+    else if(card.streak===2) card.ivl = 2;
+    else card.ivl = Math.max(3, Math.ceil((card.ivl||1)*1.7));
+    card.nextReview = addDays(todayYMD(), card.ivl);
+  } else {
+    btnElement.classList.add('wrong');
+    card.wrongs = (card.wrongs||0) + 1;
+    card.streak = 0;
+    card.ivl = 1;
+    card.nextReview = addDays(todayYMD(), 1);
+    card.isHard = true; // immediately mark as hard
+  }
+  saveAll();
+  // move to next card (do NOT reinsert in this session)
+  setTimeout(()=>{
+    SESSION.i++;
+    if(SESSION.i < SESSION.queue.length) renderReviewCard();
+    else { alert('انتهت الجلسة ✅'); show('dash'); }
+  }, 550);
+}
+
+/* Show answer (considered a mistake) */
+el.btnShowAnswer.addEventListener('click', ()=> {
+  if(SESSION.i >= SESSION.queue.length) return;
+  const cid = SESSION.queue[SESSION.i];
+  const card = CARDS.find(c=>c.id===cid);
+  if(!card) return;
+  // mark as wrong
+  card.attempts = (card.attempts||0)+1;
+  card.wrongs = (card.wrongs||0)+1;
+  card.streak = 0;
+  card.ivl = 1;
+  card.nextReview = addDays(todayYMD(), 1);
+  card.isHard = true;
+  saveAll();
+  // reveal correct option visually
+  [...el.qOptions.querySelectorAll('button')].forEach(b=>{
+    if(b.textContent === card.meaning) b.classList.add('correct');
+    b.disabled = true;
+  });
+  setTimeout(()=>{ SESSION.i++; if(SESSION.i < SESSION.queue.length) renderReviewCard(); else { alert('انتهت الجلسة ✅'); show('dash'); } }, 700);
+});
+
+/* ----------------- Learn (single card view with navigation) ----------------- */
+/* We store last seen card by its id (more robust than by index) */
+function getLearnIndex(){
+  if(CARDS.length === 0) return 0;
+  const lastId = localStorage.getItem(LEARN_LAST_ID_KEY);
+  if(lastId){
+    const idx = CARDS.findIndex(c=>c.id === lastId);
+    if(idx !== -1) return idx;
+  }
+  // default to 0
+  return 0;
+}
+function setLearnIndex(i){
+  if(i < 0) i = 0;
+  if(i >= CARDS.length) i = CARDS.length - 1;
+  const c = CARDS[i];
+  if(c && c.id) localStorage.setItem(LEARN_LAST_ID_KEY, c.id);
+}
+
+function renderLearn(){
+  el.learnList.innerHTML = '';
+  if(CARDS.length===0){ el.learnList.textContent = 'لا توجد بطاقات بعد.'; return; }
+
+  let idx = getLearnIndex();
+  if(idx < 0) idx = 0;
+  if(idx >= CARDS.length) idx = CARDS.length - 1;
+  // ensure stored id stays consistent
+  setLearnIndex(idx);
+
+  const c = CARDS[idx];
+  if(!c){ el.learnList.textContent = 'خطأ: لا يمكن تحميل البطاقة.'; return; }
+
+  const d = document.createElement('div');
+  d.className = 'card';
+
+  // Header (word + pinyin + meaning + speak)
+  const header = document.createElement('div');
+  header.style.display = "flex";
+  header.style.justifyContent = "space-between";
+  header.style.alignItems = "center";
+  header.innerHTML = `
+    <div>
+      <div style="font-weight:800;font-size:20px">${escapeText(c.word)}</div>
+      <div style="color:var(--muted)">${escapeText(c.pinyin)} — ${escapeText(c.meaning)}</div>
+    </div>
+  `;
+  const speakBtn = document.createElement('button');
+  speakBtn.className = 'btn';
+  speakBtn.textContent = "🔊";
+  speakBtn.addEventListener('click', ()=> speak(c.word));
+  header.appendChild(speakBtn);
+  d.appendChild(header);
+
+  // Counter (بطاقة X من Y)
+  const counter = document.createElement('div');
+  counter.style.marginTop = '8px';
+  counter.style.color = 'var(--muted)';
+  counter.style.fontSize = '13px';
+  counter.textContent = `بطاقة ${idx+1} من ${CARDS.length}`;
+  d.appendChild(counter);
+
+  // Three sentences
+  c.sentences.forEach((s,si)=>{
+    const sdiv = document.createElement('div');
+    sdiv.className = 'sent';
+    sdiv.innerHTML = `
+      <div style="font-weight:700">جملة ${si+1}</div>
+      <div style="font-size:16px">${escapeText(s.sentence||'—')}</div>
+      <div style="color:var(--muted)">${escapeText(s.pinyin||'—')}</div>
+      <div style="color:var(--accent)">${escapeText(s.meaning||'—')}</div>
+    `;
+    d.appendChild(sdiv);
   });
 
-  el.showAns.onclick = ()=>{
-    [...el.opts.children].forEach(btn=>{
-      if(btn.textContent===card.meaning) btn.classList.add('correct');
-    });
-  };
+  // Navigation buttons
+  const nav = document.createElement('div');
+  nav.style.display = 'flex';
+  nav.style.justifyContent = 'space-between';
+  nav.style.marginTop = '10px';
+
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'btn';
+  prevBtn.textContent = '⏮️ السابق';
+  prevBtn.disabled = (idx === 0);
+  prevBtn.addEventListener('click', ()=>{
+    if(idx > 0){
+      const newIdx = idx - 1;
+      setLearnIndex(newIdx);
+      renderLearn();
+    }
+  });
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'btn';
+  nextBtn.textContent = '⏭️ التالي';
+  nextBtn.disabled = (idx >= CARDS.length - 1);
+  nextBtn.addEventListener('click', ()=>{
+    if(idx < CARDS.length - 1){
+      const newIdx = idx + 1;
+      setLearnIndex(newIdx);
+      renderLearn();
+    }
+  });
+
+  nav.appendChild(prevBtn);
+  nav.appendChild(nextBtn);
+  d.appendChild(nav);
+
+  el.learnList.appendChild(d);
 }
 
-/* ================== نتائج ================== */
-function renderResults(){
-  el.finalScore.textContent = SESSION.score;
-  el.finalTotal.textContent = SESSION.queue.length;
-  el.wrongList.innerHTML = '';
-  if(SESSION.wrongs.length===0){
-    el.wrongList.innerHTML = '<li>أحسنت — لا أخطاء 🎉</li>';
-  }else{
-    // تجميع دون تكرار
-    const seen = new Set();
-    SESSION.wrongs.forEach(w=>{
-      if(seen.has(w.id)) return; seen.add(w.id);
-      const li = document.createElement('li');
-      li.textContent = `${w.hanzi} (${w.pinyin||'—'}) — ${w.meaning}`;
-      el.wrongList.appendChild(li);
+/* ----------------- Hard words list and review ----------------- */
+function renderHardList(){
+  el.hardList.innerHTML = '';
+  const hard = CARDS.filter(c=>c.isHard);
+  if(hard.length===0){ el.hardList.textContent = 'لا توجد كلمات صعبة.'; return; }
+  hard.forEach(card=>{
+    const d = document.createElement('div'); d.className='card';
+    d.innerHTML = `<div style="font-weight:800;font-size:18px">${escapeText(card.word)}</div>
+      <div style="color:var(--muted)">${escapeText(card.pinyin)} — ${escapeText(card.meaning)}</div>`;
+    const btns = document.createElement('div'); btns.style.marginTop='8px';
+    const startBtn = document.createElement('button'); startBtn.className='btn'; startBtn.textContent='مراجعة هذه الكلمة';
+    startBtn.addEventListener('click', ()=> {
+      // single card review
+      SESSION.mode='single';
+      SESSION.queue = [card.id]; SESSION.i=0;
+      show('review'); renderReviewCard();
     });
-  }
+    const clearBtn = document.createElement('button'); clearBtn.className='btn'; clearBtn.textContent='إزالة من الصعبة';
+    clearBtn.addEventListener('click', ()=> { card.isHard = false; saveAll(); renderHardList(); });
+    btns.appendChild(startBtn); btns.appendChild(clearBtn);
+    d.appendChild(btns);
+    el.hardList.appendChild(d);
+  });
 }
-el.again.onclick = ()=> startSession(SESSION.mode);
-el.backHome.onclick = ()=> show('dash');
 
-/* ================== تصدير/استيراد ================== */
-el.exp.onclick = ()=>{
-  const data = JSON.stringify(CARDS, null, 2);
-  const blob = new Blob([data], {type:'application/json'});
+/* ----------------- Export / Import ----------------- */
+function exportData(){
+  const dataStr = JSON.stringify(CARDS, null, 2);
+  const blob = new Blob([dataStr], {type: 'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'chinese-flashcards.json';
-  a.click(); URL.revokeObjectURL(a.href);
-};
-el.imp.onchange = (e)=>{
-  const f = e.target.files[0]; if(!f) return;
-  const r = new FileReader();
-  r.onload = ()=>{
-    try{
-      const arr = JSON.parse(r.result);
-      if(!Array.isArray(arr)) throw new Error('invalid');
-      const sanitized = arr.map(it=>({
-        id: it.id||uid(), hanzi: it.hanzi||it.word||'', pinyin: it.pinyin||'',
-        meaning: it.meaning||'', ivl: it.ivl||1, ease: it.ease||2.5,
-        streak: it.streak||0, created: it.created||todayYMD(), dueYMD: it.dueYMD||todayYMD(),
-        attempts: it.attempts||0, wrongs: it.wrongs||0
-      }));
-      CARDS = sanitized.concat(CARDS);
-      saveAll(); refreshDash(); alert('تم الاستيراد');
-    }catch(err){ alert('ملف غير صالح'); }
-  };
-  r.readAsText(f);
-};
-
-/* ================== تبديل المشاهد ================== */
-function show(name){
-  const map = {dash:'view-dashboard', add:'view-add', review:'view-review', results:'view-results'};
-  Object.values(map).forEach(id=> document.getElementById(id).style.display='none');
-  document.getElementById(map[name]).style.display='';
-  if(name==='dash') refreshDash();
-  if(name==='results') renderResults();
+  a.download = 'cards-export.json';
+  a.click();
 }
 
-/* ================== بدء ================== */
+function importData(evt){
+  const f = evt.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    try{
+      const arr = JSON.parse(e.target.result);
+      if(!Array.isArray(arr)) throw new Error('ملف غير صالح');
+      // sanitize and merge (avoid exact id conflict: if id exists, generate new id)
+      const existingIds = new Set(CARDS.map(c=>c.id));
+      const newCards = arr.map(item=>{
+        const id = (item.id && !existingIds.has(item.id)) ? item.id : uid();
+        existingIds.add(id);
+        // normalize similar to loadAll
+        const word = item.word || item.hanzi || '';
+        const pinyin = item.pinyin || '';
+        const meaning = item.meaning || '';
+        let sentences = [];
+        if(Array.isArray(item.sentences)) sentences = item.sentences.map(s=> typeof s==='string' ? {sentence:s,pinyin:'',meaning:''} : {sentence:s.sentence||'', pinyin:s.pinyin||'', meaning:s.meaning||''} ).slice(0,3);
+        while(sentences.length<3) sentences.push({sentence:'',pinyin:'',meaning:''});
+        return { id, word, pinyin, meaning, sentences, isHard: !!item.isHard, nextReview: item.nextReview||todayYMD(), attempts:item.attempts||0, wrongs:item.wrongs||0, ivl:item.ivl||1, streak:item.streak||0, created:item.created||todayYMD() };
+      });
+      CARDS = newCards.concat(CARDS);
+      saveAll();
+      alert('تم الاستيراد ✅');
+    }catch(err){
+      alert('فشل الاستيراد — ملف غير صالح');
+      console.error(err);
+    } finally {
+      // clear file input so same file can be re-imported if needed
+      evt.target.value = '';
+    }
+  };
+  reader.readAsText(f);
+}
+
+/* ----------------- Init ----------------- */
 loadAll();
 show('dash');
-</script>
 
-<!-- ========= PWA مدمج (manifest + service worker عبر Blob URLs) ========= -->
-<script>
-/* أيقونة بسيطة Base64 (Placeholder) */
-const ICON_PNG_192 = "iVBORw0KGgoAAAANSUhEUgAAAMAAAADAAQAAAABz2qGAAAAFklEQVR4nO3BAQ0AAADCoPdPbQ8HFAAA4HgC/QAAqg==";
-const ICON_PNG_512 = ICON_PNG_192;
-
-/* إنشاء manifest ديناميكيًا كـ Blob */
-const manifest = {
-  name: "بطاقات الصينية",
-  short_name: "Chinese Cards",
-  start_url: ".",
-  display: "standalone",
-  background_color: "#ffffff",
-  theme_color: "#0ea5a4",
-  icons: [
-    { src: "data:image/png;base64,"+ICON_PNG_192, sizes:"192x192", type:"image/png" },
-    { src: "data:image/png;base64,"+ICON_PNG_512, sizes:"512x512", type:"image/png" }
-  ]
-};
-const mBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-const mUrl = URL.createObjectURL(mBlob);
-const link = document.createElement('link'); link.rel='manifest'; link.href = mUrl; document.head.appendChild(link);
-
-/* Service Worker: يكتفي بتخزين هذا الملف */
-const swCode = `
-self.addEventListener('install', (e)=>{
-  self.skipWaiting();
-  e.waitUntil(caches.open('zh-cards-v3').then(c=>c.addAll(['./'])).catch(()=>{}));
-});
-self.addEventListener('activate', (e)=> { self.clients.claim(); });
-self.addEventListener('fetch', (e)=>{
-  e.respondWith(
-    caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{
-      const copy = res.clone();
-      caches.open('zh-cards-v3').then(c=>{ if(e.request.method==='GET') c.put(e.request, copy); });
-      return res;
-    }).catch(()=> caches.match('./')) )
-  );
-});
-`;
-if('serviceWorker' in navigator){
-  const swBlob = new Blob([swCode], {type:'text/javascript'});
-  const swUrl = URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swUrl).catch(()=>{});
-}
+/* expose for debugging (optional) */
+window._CARDS = CARDS;
 </script>
 </body>
 </html>
